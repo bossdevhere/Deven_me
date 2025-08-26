@@ -1,0 +1,39 @@
+<!-- sections/header.html -->
+<header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
+    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="#home" class="text-2xl font-bold">Deven</a>
+        <div class="flex items-center">
+            <div id="nav-menu" class="hidden md:flex items-center space-x-8">
+                <ul class="flex items-center space-x-8">
+                    <li><a href="#home" class="nav-link active-link">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#qualifications" class="nav-link">Qualifications</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+            <button id="theme-button" class="cursor-pointer ml-6">
+                <i data-lucide="sun" class="w-6 h-6"></i>
+            </button>
+            <div id="nav-toggle" class="md:hidden cursor-pointer ml-4">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="mobile-menu" class="fixed top-0 -right-full w-3/4 h-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm z-50 transition-all duration-300 md:hidden">
+    <div class="p-8">
+        <div class="flex justify-end mb-8"><i id="nav-close" data-lucide="x" class="w-6 h-6 cursor-pointer"></i></div>
+        <ul class="flex flex-col space-y-6 text-lg">
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#qualifications" class="nav-link">Qualifications</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+    </div>
+</div>

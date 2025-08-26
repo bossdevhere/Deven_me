@@ -1,0 +1,119 @@
+/* Custom CSS variables for theming */
+:root {
+    --bg-color: #f3f4f6; /* gray-100 */
+    --text-color: #1f2937; /* gray-800 */
+    --card-bg-color: #ffffff;
+    --border-color: #e5e7eb; /* gray-200 */
+    --header-bg: rgba(243, 244, 246, 0.8);
+    --subtitle-color: #4b5563; /* gray-600 */
+    --secondary-btn-bg: #e5e7eb; /* gray-200 */
+    --secondary-btn-hover-bg: #d1d5db; /* gray-300 */
+    --form-input-bg: #e5e7eb;
+    --scrollbar-bg: #e5e7eb;
+    --scrollbar-thumb-bg: #9ca3af;
+}
+
+html.dark {
+    --bg-color: #111827; /* gray-900 */
+    --text-color: #d1d5db; /* gray-300 */
+    --card-bg-color: #1f2937; /* gray-800 */
+    --border-color: #374151; /* gray-700 */
+    --header-bg: rgba(31, 41, 55, 0.8);
+    --subtitle-color: #9ca3af; /* gray-400 */
+    --secondary-btn-bg: #374151; /* gray-700 */
+    --secondary-btn-hover-bg: #4b5563; /* gray-600 */
+    --form-input-bg: #374151;
+    --scrollbar-bg: #1f2937;
+    --scrollbar-thumb-bg: #0891b2;
+}
+
+/* General Body and Typography */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+.section-title {
+    @apply text-3xl md:text-4xl font-bold text-center mb-2;
+    color: var(--text-color);
+}
+html.dark .section-title {
+     color: #ffffff;
+}
+.section-subtitle {
+    @apply text-sm text-center mb-12;
+    color: var(--subtitle-color);
+}
+
+/* Navigation Links */
+.nav-link {
+    color: var(--text-color);
+    @apply hover:text-cyan-400 transition-colors duration-300;
+}
+.active-link {
+    @apply text-cyan-400;
+}
+
+/* Buttons */
+.btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+}
+.btn-primary {
+    @apply bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg shadow-cyan-500/30;
+}
+.btn-secondary {
+    background-color: var(--secondary-btn-bg);
+    color: var(--text-color);
+}
+.btn-secondary:hover {
+     background-color: var(--secondary-btn-hover-bg);
+}
+html.dark .btn-secondary {
+    color: #ffffff;
+}
+
+/* Cards and UI Elements */
+.card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    @apply rounded-2xl p-6 transition-all duration-300;
+}
+.progress-bar {
+    @apply w-full rounded-full h-2.5;
+    background-color: var(--border-color);
+}
+.progress-bar-fill {
+    @apply bg-cyan-500 h-2.5 rounded-full transition-all duration-1000 ease-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--scrollbar-bg);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb-bg);
+    border-radius: 10px;
+}
+
+/* Project Filter Buttons */
+.project-filter {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s;
+    font-weight: 500;
+    color: var(--subtitle-color);
+}
+.project-filter:hover {
+    background-color: var(--secondary-btn-bg);
+    color: var(--text-color);
+}
+html.dark .project-filter:hover {
+     color: #ffffff;
+}
+.project-filter.active-filter {
+    background-color: #0891b2;
+    color: #fff !important;
+}
