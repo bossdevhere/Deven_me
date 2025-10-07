@@ -43,6 +43,7 @@ html.dark .section-title {
 }
 .section-subtitle {
     @apply text-sm text-center mb-12;
+    padding-bottom: 20px;
     color: var(--subtitle-color);
 }
 
