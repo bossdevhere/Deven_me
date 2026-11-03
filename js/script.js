@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 return response.text();
             })
             .then(data => {
-                document.getElementById(placeholderId).innerHTML = data;
+                const el = document.getElementById(placeholderId);
+                if (el) el.innerHTML = data;
             })
             .catch(error => console.error('Error loading HTML:', error));
     };
@@ -26,26 +27,26 @@ document.addEventListener("DOMContentLoaded", function() {
         loadHTML('sections/contact.html', 'contact-placeholder'),
         loadHTML('sections/footer.html', 'footer-placeholder')
     ]).then(() => {
-        // All HTML content is loaded, now initialize the scripts
+        // All HTML content is loaded, now initialize the app
         initializePortfolio();
     });
 });
 
 function initializePortfolio() {
     // Initialize Lucide Icons
-    lucide.createIcons();
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 
     /*=============== THEME SWITCHER ===============*/
     const themeButton = document.getElementById('theme-button');
     const darkTheme = 'dark';
-    const sunIcon = 'sun';
-    const moonIcon = 'moon';
 
-    const updateIcon = () => {
+    const updateThemeIcon = () => {
+        if (!themeButton) return;
         const isDarkMode = document.documentElement.classList.contains(darkTheme);
-        const newIcon = isDarkMode ? moonIcon : sunIcon;
-        themeButton.innerHTML = `<i data-lucide="${newIcon}" class="w-6 h-6"></i>`;
-        lucide.createIcons();
+        themeButton.innerHTML = `<i data-lucide="${isDarkMode ? 'sun' : 'moon'}" class="w-4 h-4"></i>`;
+        if (window.lucide) lucide.createIcons();
     };
 
     const applyInitialTheme = () => {
@@ -53,33 +54,36 @@ function initializePortfolio() {
         if (savedTheme === darkTheme) {
             document.documentElement.classList.add(darkTheme);
         } else {
+            // Default to light or clean theme as in reference image
             document.documentElement.classList.remove(darkTheme);
         }
-        updateIcon();
+        updateThemeIcon();
     };
 
     applyInitialTheme();
 
-    themeButton.addEventListener('click', () => {
-        document.documentElement.classList.toggle(darkTheme);
-        const currentTheme = document.documentElement.classList.contains(darkTheme) ? darkTheme : 'light';
-        localStorage.setItem('selected-theme', currentTheme);
-        updateIcon();
-    });
+    if (themeButton) {
+        themeButton.addEventListener('click', () => {
+            document.documentElement.classList.toggle(darkTheme);
+            const currentTheme = document.documentElement.classList.contains(darkTheme) ? darkTheme : 'light';
+            localStorage.setItem('selected-theme', currentTheme);
+            updateThemeIcon();
+        });
+    }
 
     /*=============== MOBILE MENU ===============*/
-    const navMenu = document.getElementById('mobile-menu'),
-          navToggle = document.getElementById('nav-toggle'),
-          navClose = document.getElementById('nav-close');
+    const navMenu = document.getElementById('mobile-menu');
+    const navToggle = document.getElementById('nav-toggle');
+    const navClose = document.getElementById('nav-close');
 
-    if (navToggle) {
+    if (navToggle && navMenu) {
         navToggle.addEventListener('click', () => {
             navMenu.classList.remove('-right-full');
             navMenu.classList.add('right-0');
         });
     }
 
-    if (navClose) {
+    if (navClose && navMenu) {
         navClose.addEventListener('click', () => {
             navMenu.classList.remove('right-0');
             navMenu.classList.add('-right-full');
@@ -89,20 +93,24 @@ function initializePortfolio() {
     const navLinks = document.querySelectorAll('#mobile-menu .nav-link');
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
-            navMenu.classList.remove('right-0');
-            navMenu.classList.add('-right-full');
+            if (navMenu) {
+                navMenu.classList.remove('right-0');
+                navMenu.classList.add('-right-full');
+            }
         });
     });
 
-    /*=============== HEADER BACKGROUND ON SCROLL ===============*/
+    /*=============== HEADER SCROLL BLUR ===============*/
+    const header = document.getElementById('header');
     const scrollHeader = () => {
-        const header = document.getElementById('header');
-        if (window.scrollY >= 50) {
-            header.classList.add('shadow-lg');
-            header.style.backgroundColor = 'var(--header-bg)';
-            header.classList.add('backdrop-blur-sm');
+        if (!header) return;
+        if (window.scrollY >= 40) {
+            header.classList.add('backdrop-blur-md', 'shadow-sm');
+            header.style.backgroundColor = document.documentElement.classList.contains(darkTheme)
+                ? 'rgba(8, 8, 8, 0.85)'
+                : 'rgba(255, 255, 255, 0.85)';
         } else {
-            header.classList.remove('shadow-lg', 'backdrop-blur-sm');
+            header.classList.remove('backdrop-blur-md', 'shadow-sm');
             header.style.backgroundColor = 'transparent';
         }
     };
@@ -110,62 +118,44 @@ function initializePortfolio() {
 
     /*=============== ACTIVE NAV LINK ON SCROLL ===============*/
     const sections = document.querySelectorAll('section[id]');
+    const navPillLinks = document.querySelectorAll('.nav-tab');
+
     const scrollActive = () => {
         const scrollY = window.pageYOffset;
         sections.forEach(current => {
-            const sectionHeight = current.offsetHeight,
-                  sectionTop = current.offsetTop - 58,
-                  sectionId = current.getAttribute('id');
-            const navMenuLink = document.querySelector('#nav-menu a[href*=' + sectionId + ']');
-            if (navMenuLink) {
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navMenuLink.classList.add('active-link');
-                } else {
-                    navMenuLink.classList.remove('active-link');
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - 120;
+            const sectionId = current.getAttribute('id');
+            const navLink = document.querySelector(`.nav-tab[href="#${sectionId}"]`);
+
+            if (navLink) {
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    navPillLinks.forEach(item => {
+                        item.classList.remove('active-link', 'bg-[#d4f742]', 'text-black', 'font-semibold', 'shadow-sm');
+                        item.classList.add('text-gray-700', 'dark:text-gray-300');
+                    });
+                    navLink.classList.add('active-link', 'bg-[#d4f742]', 'text-black', 'font-semibold', 'shadow-sm');
+                    navLink.classList.remove('text-gray-700', 'dark:text-gray-300');
                 }
             }
         });
     };
     window.addEventListener('scroll', scrollActive);
 
-    /*=============== SHOW SCROLL TO TOP BUTTON ===============*/
+    /*=============== SCROLL TO TOP ===============*/
     const scrollUp = () => {
         const scrollUpBtn = document.getElementById('scroll-up');
-        if (window.scrollY >= 350) {
-            scrollUpBtn.classList.replace('-bottom-1/4', 'bottom-4');
+        if (!scrollUpBtn) return;
+        if (window.scrollY >= 400) {
+            scrollUpBtn.classList.replace('-bottom-1/4', 'bottom-6');
         } else {
-            scrollUpBtn.classList.replace('bottom-4', '-bottom-1/4');
+            scrollUpBtn.classList.replace('bottom-6', '-bottom-1/4');
         }
     };
     window.addEventListener('scroll', scrollUp);
 
-    /*=============== TYPING EFFECT ===============*/
-    new Typed('.typing-effect', {
-        strings: ['App Developer', 'Flutter Developer', 'Web Developer'],
-        typeSpeed: 100,
-        backSpeed: 60,
-        loop: true
-    });
-
-    /*=============== SCROLL REVEAL ANIMATION ===============*/
-    const sr = ScrollReveal({
-        origin: 'top',
-        distance: '60px',
-        duration: 2500,
-        delay: 400,
-    });
-    sr.reveal(`#home .text-4xl, #home .text-2xl, #home p, #home .flex-col`);
-    sr.reveal(`#home .relative`, { delay: 600, origin: 'bottom' });
-    sr.reveal(`#about .grid > div:first-child`, { origin: 'left' });
-    sr.reveal(`#about .grid > div:last-child`, { origin: 'right' });
-    sr.reveal(`.section-title, .section-subtitle`, { interval: 100 });
-    sr.reveal(`#skills .skills-content`, { origin: 'left', interval: 200 });
-    sr.reveal(`#services .card`, { interval: 200 });
-    sr.reveal(`#qualifications .timeline-item`, { interval: 200 });
-    sr.reveal(`#projects .project-filter`, { interval: 100 });
-    sr.reveal(`#projects .project-item`, { interval: 200 });
-    sr.reveal(`#contact .grid > div:first-child`, { origin: 'left' });
-    sr.reveal(`#contact .grid > div:last-child`, { origin: 'right' });
+    /*=============== GSAP ANIMATIONS ===============*/
+    initGSAPAnimations();
 
     /*=============== PROJECT FILTER ===============*/
     const filterButtons = document.querySelectorAll('.project-filter');
@@ -176,22 +166,232 @@ function initializePortfolio() {
             button.classList.add('active-filter');
             const filterValue = button.getAttribute('data-filter');
             projectItems.forEach(item => {
-                item.style.display = (filterValue === 'all' || item.getAttribute('data-category') === filterValue) ? 'block' : 'none';
+                const category = item.getAttribute('data-category');
+                item.style.display = (filterValue === 'all' || category === filterValue) ? 'block' : 'none';
             });
+            if (window.ScrollTrigger) {
+                ScrollTrigger.refresh();
+            }
         });
     });
+}
 
-    /*=============== SERVICES LINK TO PROJECT FILTER ===============*/
-    const serviceLinks = document.querySelectorAll('.service-link');
-    serviceLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            const filterTarget = link.getAttribute('data-filter-target');
-            if (filterTarget) {
-                const filterButton = document.querySelector(`.project-filter[data-filter="${filterTarget}"]`);
-                if (filterButton) {
-                    setTimeout(() => filterButton.click(), 50);
+/*=============== ADVANCED GSAP SUITE ===============*/
+function initGSAPAnimations() {
+    if (!window.gsap) return;
+
+    if (window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+    }
+
+    // Main entrance timeline
+    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+    // 1. Header reveal
+    tl.from("#header", {
+        y: -40,
+        opacity: 0,
+        duration: 0.8
+    })
+    // 2. Hero Card scale & fade in
+    .from(".hero-card", {
+        scale: 0.96,
+        opacity: 0,
+        duration: 1,
+        ease: "power2.out"
+    }, "-=0.4")
+    // 3. Hero Portrait fade & settle
+    .from(".hero-portrait-img", {
+        scale: 1.08,
+        opacity: 0,
+        duration: 1.2,
+        ease: "power2.out"
+    }, "-=0.8")
+    // 4. Greeting reveal
+    .from(".hero-greeting", {
+        x: -30,
+        opacity: 0,
+        duration: 0.6
+    }, "-=0.8")
+    // 5. Waving hand micro-animation
+    .to(".hero-wave", {
+        rotation: 20,
+        duration: 0.25,
+        repeat: 4,
+        yoyo: true,
+        ease: "power1.inOut"
+    }, "-=0.3")
+    // 6. Big Headline line reveal
+    .from(".hero-title-line", {
+        y: 45,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.15
+    }, "-=0.6")
+    // 7. Hire Me Button pop
+    .from(".hero-btn", {
+        scale: 0.8,
+        opacity: 0,
+        duration: 0.6,
+        ease: "back.out(1.7)"
+    }, "-=0.5")
+    // 8. Descriptor paragraph
+    .from(".hero-desc", {
+        y: 20,
+        opacity: 0,
+        duration: 0.6
+    }, "-=0.4")
+    // 9. Floating EXP Card drop
+    .from(".hero-exp-card", {
+        y: -30,
+        opacity: 0,
+        duration: 0.8,
+        ease: "back.out(1.5)"
+    }, "-=0.8")
+    // 10. EXP Icons pop in
+    .from(".exp-icon-item", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.4,
+        stagger: 0.08,
+        ease: "back.out(2)"
+    }, "-=0.5")
+    // 11. Stats items reveal
+    .from(".hero-stat-item", {
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12
+    }, "-=0.6")
+    // 12. Stats horizontal lines expand from left to right
+    .from(".stat-line", {
+        scaleX: 0,
+        transformOrigin: "left center",
+        duration: 0.8,
+        stagger: 0.1
+    }, "-=0.5");
+
+    // Animate stats counter numbers dynamically
+    animateStatsCounters();
+
+    // Idle floating animation for EXP card
+    gsap.to(".hero-exp-card", {
+        y: "-=8",
+        duration: 2.8,
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+    });
+
+    // 3D Parallax Mouse Interactivity
+    initHeroMouseParallax();
+    if (window.location.search.includes("static")) { tl.progress(1); }
+
+    // ScrollTrigger animations for other sections if on page
+    if (window.ScrollTrigger) {
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.from(title, {
+                scrollTrigger: {
+                    trigger: title,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        gsap.utils.toArray('.card').forEach(card => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: "top 88%",
+                    toggleActions: "play none none none"
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.7,
+                ease: "power2.out"
+            });
+        });
+    }
+}
+
+/*=============== STATS COUNTER ANIMATION ===============*/
+function animateStatsCounters() {
+    const statElements = document.querySelectorAll('.stat-number');
+    statElements.forEach(el => {
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        const suffix = el.getAttribute('data-suffix') || '';
+        const isK = el.getAttribute('data-format') === 'k';
+        const obj = { val: 0 };
+
+        gsap.to(obj, {
+            val: target,
+            duration: 2.0,
+            ease: "power2.out",
+            delay: 0.8,
+            onUpdate: () => {
+                if (isK) {
+                    const formatted = Math.floor(obj.val / 1000);
+                    el.textContent = `${formatted}k${suffix}`;
+                } else {
+                    el.textContent = `${Math.floor(obj.val)}${suffix}`;
                 }
             }
         });
+    });
+}
+
+/*=============== INTERACTIVE 3D MOUSE PARALLAX ===============*/
+function initHeroMouseParallax() {
+    const heroCard = document.querySelector('.hero-card');
+    const portrait = document.querySelector('.hero-portrait-img');
+    const expCard = document.querySelector('.hero-exp-card');
+
+    if (!heroCard || !portrait) return;
+
+    heroCard.addEventListener('mousemove', (e) => {
+        const rect = heroCard.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        // Subtle portrait shift
+        gsap.to(portrait, {
+            x: x * 15,
+            y: y * 10,
+            duration: 0.8,
+            ease: "power1.out"
+        });
+
+        // Inverse subtle shift for floating card (depth effect)
+        if (expCard) {
+            gsap.to(expCard, {
+                x: -x * 20,
+                y: -y * 15,
+                duration: 0.8,
+                ease: "power1.out"
+            });
+        }
+    });
+
+    heroCard.addEventListener('mouseleave', () => {
+        gsap.to(portrait, {
+            x: 0,
+            y: 0,
+            duration: 1.2,
+            ease: "power2.out"
+        });
+
+        if (expCard) {
+            gsap.to(expCard, {
+                x: 0,
+                y: 0,
+                duration: 1.2,
+                ease: "power2.out"
+            });
+        }
     });
 }

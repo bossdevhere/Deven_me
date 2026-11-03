@@ -1,91 +1,131 @@
-/* Custom CSS variables for theming */
+/* Custom CSS Variables & Theming */
 :root {
-    --bg-color: #f3f4f6; /* gray-100 */
-    --text-color: #1f2937; /* gray-800 */
-    --card-bg-color: #ffffff;
-    --border-color: #e5e7eb; /* gray-200 */
-    --header-bg: rgba(243, 244, 246, 0.8);
-    --subtitle-color: #4b5563; /* gray-600 */
-    --secondary-btn-bg: #e5e7eb; /* gray-200 */
-    --secondary-btn-hover-bg: #d1d5db; /* gray-300 */
-    --form-input-bg: #e5e7eb;
-    --scrollbar-bg: #e5e7eb;
-    --scrollbar-thumb-bg: #9ca3af;
+    --bg-color: #ffffff;
+    --text-color: #111827;
+    --card-bg-color: #f9fafb;
+    --border-color: #e5e7eb;
+    --header-bg: rgba(255, 255, 255, 0.85);
+    --subtitle-color: #6b7280;
+    --lime-primary: #d4f742;
+    --lime-hover: #e1fa5c;
+    --secondary-btn-bg: #f3f4f6;
+    --secondary-btn-hover-bg: #e5e7eb;
+    --form-input-bg: #f3f4f6;
+    --scrollbar-bg: #f3f4f6;
+    --scrollbar-thumb-bg: #d1d5db;
 }
 
 html.dark {
-    --bg-color: #111827; /* gray-900 */
-    --text-color: #d1d5db; /* gray-300 */
-    --card-bg-color: #1f2937; /* gray-800 */
-    --border-color: #374151; /* gray-700 */
-    --header-bg: rgba(31, 41, 55, 0.8);
-    --subtitle-color: #9ca3af; /* gray-400 */
-    --secondary-btn-bg: #374151; /* gray-700 */
-    --secondary-btn-hover-bg: #4b5563; /* gray-600 */
-    --form-input-bg: #374151;
-    --scrollbar-bg: #1f2937;
-    --scrollbar-thumb-bg: #0891b2;
+    --bg-color: #080808;
+    --text-color: #f3f4f6;
+    --card-bg-color: #121312;
+    --border-color: #262626;
+    --header-bg: rgba(8, 8, 8, 0.85);
+    --subtitle-color: #9ca3af;
+    --lime-primary: #d4f742;
+    --lime-hover: #e1fa5c;
+    --secondary-btn-bg: #1c1d1b;
+    --secondary-btn-hover-bg: #292a27;
+    --form-input-bg: #1c1d1b;
+    --scrollbar-bg: #080808;
+    --scrollbar-thumb-bg: #2b2e2a;
 }
 
-/* General Body and Typography */
+/* Global Selection */
+::selection {
+    background-color: var(--lime-primary);
+    color: #000000;
+}
+
+/* Base Body and Typography */
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
 }
+
+.font-display {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+}
+
 .section-title {
-    @apply text-3xl md:text-4xl font-bold text-center mb-2;
+    @apply text-3xl md:text-5xl font-extrabold text-center mb-3 font-display tracking-tight;
     color: var(--text-color);
 }
+
 html.dark .section-title {
-     color: #ffffff;
+    color: #ffffff;
 }
+
 .section-subtitle {
-    @apply text-sm text-center mb-12;
-    padding-bottom: 20px;
+    @apply text-sm md:text-base text-center mb-12 font-medium;
+    padding-bottom: 10px;
     color: var(--subtitle-color);
 }
 
-/* Navigation Links */
-.nav-link {
-    color: var(--text-color);
-    @apply hover:text-cyan-400 transition-colors duration-300;
+/* Nav Link Pills */
+.nav-link-pill {
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.active-link {
-    @apply text-cyan-400;
+
+.nav-link-pill.active-link,
+.nav-tab.active-link {
+    background-color: var(--lime-primary) !important;
+    color: #000000 !important;
+    font-weight: 600;
 }
 
 /* Buttons */
 .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-300;
 }
+
 .btn-primary {
-    @apply bg-cyan-500 text-white hover:bg-cyan-600 shadow-lg shadow-cyan-500/30;
+    background-color: var(--lime-primary);
+    color: #000000;
+    @apply hover:bg-[#e1fa5c] shadow-lg shadow-lime-500/20 active:scale-95;
 }
+
 .btn-secondary {
     background-color: var(--secondary-btn-bg);
     color: var(--text-color);
 }
+
 .btn-secondary:hover {
-     background-color: var(--secondary-btn-hover-bg);
+    background-color: var(--secondary-btn-hover-bg);
 }
+
 html.dark .btn-secondary {
     color: #ffffff;
 }
 
-/* Cards and UI Elements */
+/* Cards & UI */
 .card {
     background-color: var(--card-bg-color);
     border: 1px solid var(--border-color);
-    @apply rounded-2xl p-6 transition-all duration-300;
+    @apply rounded-3xl p-6 transition-all duration-300;
 }
+
+.card:hover {
+    border-color: rgba(212, 247, 66, 0.4);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+html.dark .card:hover {
+    box-shadow: 0 10px 30px -10px rgba(212, 247, 66, 0.05);
+}
+
+/* Progress Bar */
 .progress-bar {
-    @apply w-full rounded-full h-2.5;
+    @apply w-full rounded-full h-2.5 overflow-hidden;
     background-color: var(--border-color);
 }
+
 .progress-bar-fill {
-    @apply bg-cyan-500 h-2.5 rounded-full transition-all duration-1000 ease-out;
+    background-color: var(--lime-primary);
+    @apply h-2.5 rounded-full transition-all duration-1000 ease-out;
 }
 
 /* Custom Scrollbar */
@@ -93,28 +133,34 @@ html.dark .btn-secondary {
     width: 8px;
     background-color: var(--scrollbar-bg);
 }
+
 ::-webkit-scrollbar-thumb {
     background-color: var(--scrollbar-thumb-bg);
-    border-radius: 10px;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--lime-primary);
 }
 
 /* Project Filter Buttons */
 .project-filter {
     cursor: pointer;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    transition: all 0.3s;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    transition: all 0.25s ease;
     font-weight: 500;
+    font-size: 0.875rem;
     color: var(--subtitle-color);
 }
+
 .project-filter:hover {
     background-color: var(--secondary-btn-bg);
     color: var(--text-color);
 }
-html.dark .project-filter:hover {
-     color: #ffffff;
-}
+
 .project-filter.active-filter {
-    background-color: #0891b2;
-    color: #fff !important;
+    background-color: var(--lime-primary);
+    color: #000000 !important;
+    font-weight: 600;
 }
