@@ -1,21 +1,24 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Function to load HTML content into a placeholder
+    // If sections are already present in DOM (index.html), initialize immediately
+    if (document.getElementById('home')) {
+        initializePortfolio();
+        return;
+    }
+
+    // Fallback: If using placeholder injection (modular loading)
     const loadHTML = (filePath, placeholderId) => {
         return fetch(filePath)
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Could not load ${filePath}: ${response.statusText}`);
-                }
+                if (!response.ok) throw new Error(`Could not load ${filePath}`);
                 return response.text();
             })
             .then(data => {
                 const el = document.getElementById(placeholderId);
                 if (el) el.innerHTML = data;
             })
-            .catch(error => console.error('Error loading HTML:', error));
+            .catch(error => console.warn('Note loading HTML:', error));
     };
 
-    // Load all sections into their placeholders
     Promise.all([
         loadHTML('sections/header.html', 'header-placeholder'),
         loadHTML('sections/home.html', 'home-placeholder'),
@@ -27,15 +30,18 @@ document.addEventListener("DOMContentLoaded", function() {
         loadHTML('sections/contact.html', 'contact-placeholder'),
         loadHTML('sections/footer.html', 'footer-placeholder')
     ]).then(() => {
-        // All HTML content is loaded, now initialize the app
         initializePortfolio();
     });
 });
 
 function initializePortfolio() {
-    // Initialize Lucide Icons
-    if (window.lucide) {
-        lucide.createIcons();
+    /*=============== SAFE LUCIDE INITIALIZATION ===============*/
+    try {
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    } catch (e) {
+        console.warn('Lucide icon note:', e);
     }
 
     /*=============== THEME SWITCHER ===============*/
@@ -46,15 +52,17 @@ function initializePortfolio() {
         if (!themeButton) return;
         const isDarkMode = document.documentElement.classList.contains(darkTheme);
         themeButton.innerHTML = `<i data-lucide="${isDarkMode ? 'sun' : 'moon'}" class="w-4 h-4"></i>`;
-        if (window.lucide) lucide.createIcons();
+        try {
+            if (window.lucide) lucide.createIcons();
+        } catch(e) {}
     };
 
     const applyInitialTheme = () => {
         const savedTheme = localStorage.getItem('selected-theme');
+        // Default to clean light theme matching the mockup
         if (savedTheme === darkTheme) {
             document.documentElement.classList.add(darkTheme);
         } else {
-            // Default to light or clean theme as in reference image
             document.documentElement.classList.remove(darkTheme);
         }
         updateThemeIcon();
@@ -71,7 +79,7 @@ function initializePortfolio() {
         });
     }
 
-    /*=============== MOBILE MENU ===============*/
+    /*=============== MOBILE NAVIGATION ===============*/
     const navMenu = document.getElementById('mobile-menu');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
@@ -100,7 +108,7 @@ function initializePortfolio() {
         });
     });
 
-    /*=============== HEADER SCROLL BLUR ===============*/
+    /*=============== HEADER SCROLL EFFECT ===============*/
     const header = document.getElementById('header');
     const scrollHeader = () => {
         if (!header) return;
@@ -154,9 +162,6 @@ function initializePortfolio() {
     };
     window.addEventListener('scroll', scrollUp);
 
-    /*=============== GSAP ANIMATIONS ===============*/
-    initGSAPAnimations();
-
     /*=============== PROJECT FILTER ===============*/
     const filterButtons = document.querySelectorAll('.project-filter');
     const projectItems = document.querySelectorAll('.project-item');
@@ -169,157 +174,100 @@ function initializePortfolio() {
                 const category = item.getAttribute('data-category');
                 item.style.display = (filterValue === 'all' || category === filterValue) ? 'block' : 'none';
             });
-            if (window.ScrollTrigger) {
-                ScrollTrigger.refresh();
-            }
         });
     });
+
+    /*=============== BULLETPROOF GSAP ANIMATIONS ===============*/
+    initGSAPAnimations();
 }
 
-/*=============== ADVANCED GSAP SUITE ===============*/
 function initGSAPAnimations() {
     if (!window.gsap) return;
 
-    if (window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-    }
-
-    // Main entrance timeline
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-    // 1. Header reveal
-    tl.from("#header", {
-        y: -40,
-        opacity: 0,
-        duration: 0.8
-    })
-    // 2. Hero Card scale & fade in
-    .from(".hero-card", {
-        scale: 0.96,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out"
-    }, "-=0.4")
-    // 3. Hero Portrait fade & settle
-    .from(".hero-portrait-img", {
-        scale: 1.08,
-        opacity: 0,
-        duration: 1.2,
-        ease: "power2.out"
-    }, "-=0.8")
-    // 4. Greeting reveal
-    .from(".hero-greeting", {
-        x: -30,
-        opacity: 0,
-        duration: 0.6
-    }, "-=0.8")
-    // 5. Waving hand micro-animation
-    .to(".hero-wave", {
-        rotation: 20,
-        duration: 0.25,
-        repeat: 4,
-        yoyo: true,
-        ease: "power1.inOut"
-    }, "-=0.3")
-    // 6. Big Headline line reveal
-    .from(".hero-title-line", {
-        y: 45,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.15
-    }, "-=0.6")
-    // 7. Hire Me Button pop
-    .from(".hero-btn", {
-        scale: 0.8,
-        opacity: 0,
-        duration: 0.6,
-        ease: "back.out(1.7)"
-    }, "-=0.5")
-    // 8. Descriptor paragraph
-    .from(".hero-desc", {
-        y: 20,
-        opacity: 0,
-        duration: 0.6
-    }, "-=0.4")
-    // 9. Floating EXP Card drop
-    .from(".hero-exp-card", {
-        y: -30,
-        opacity: 0,
-        duration: 0.8,
-        ease: "back.out(1.5)"
-    }, "-=0.8")
-    // 10. EXP Icons pop in
-    .from(".exp-icon-item", {
-        scale: 0,
-        opacity: 0,
-        duration: 0.4,
-        stagger: 0.08,
-        ease: "back.out(2)"
-    }, "-=0.5")
-    // 11. Stats items reveal
-    .from(".hero-stat-item", {
-        y: 30,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.12
-    }, "-=0.6")
-    // 12. Stats horizontal lines expand from left to right
-    .from(".stat-line", {
-        scaleX: 0,
-        transformOrigin: "left center",
-        duration: 0.8,
-        stagger: 0.1
-    }, "-=0.5");
-
-    // Animate stats counter numbers dynamically
-    animateStatsCounters();
-
-    // Idle floating animation for EXP card
-    gsap.to(".hero-exp-card", {
-        y: "-=8",
-        duration: 2.8,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-    });
-
-    // 3D Parallax Mouse Interactivity
-    initHeroMouseParallax();
-    if (window.location.search.includes("static")) { tl.progress(1); }
-
-    // ScrollTrigger animations for other sections if on page
-    if (window.ScrollTrigger) {
-        gsap.utils.toArray('.section-title').forEach(title => {
-            gsap.from(title, {
-                scrollTrigger: {
-                    trigger: title,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                ease: "power2.out"
-            });
+    try {
+        // 1. Entrance timeline with clearProps so elements NEVER get stuck hidden
+        const tl = gsap.timeline({
+            defaults: { ease: "power3.out" },
+            onComplete: () => {
+                // Ensure all elements have cleared inline opacity
+                gsap.set(".hero-card, .hero-title-line, .hero-btn, .hero-desc, .hero-exp-card, .hero-stat-item", {
+                    clearProps: "opacity,transform"
+                });
+            }
         });
 
-        gsap.utils.toArray('.card').forEach(card => {
-            gsap.from(card, {
-                scrollTrigger: {
-                    trigger: card,
-                    start: "top 88%",
-                    toggleActions: "play none none none"
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.7,
-                ease: "power2.out"
-            });
+        // Header drop-in
+        tl.fromTo("#header",
+            { y: -30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, clearProps: "all" }
+        )
+        // Hero card gentle scale and reveal
+        .fromTo(".hero-card",
+            { scale: 0.98, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out", clearProps: "all" },
+            "-=0.4"
+        )
+        // Hero portrait gentle zoom settle
+        .fromTo(".hero-portrait-img",
+            { scale: 1.05, opacity: 0.5 },
+            { scale: 1, opacity: 1, duration: 1.0, ease: "power2.out", clearProps: "all" },
+            "-=0.6"
+        )
+        // Hero headline reveal
+        .fromTo(".hero-title-line",
+            { y: 35, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, stagger: 0.12, clearProps: "all" },
+            "-=0.6"
+        )
+        // CTA Button
+        .fromTo(".hero-btn",
+            { scale: 0.85, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)", clearProps: "all" },
+            "-=0.4"
+        )
+        // Floating experience card
+        .fromTo(".hero-exp-card",
+            { y: -25, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.7, ease: "back.out(1.5)", clearProps: "all" },
+            "-=0.5"
+        )
+        // Stats row
+        .fromTo(".hero-stat-item",
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, clearProps: "all" },
+            "-=0.4"
+        );
+
+        // Micro-waving hand animation
+        gsap.to(".hero-wave", {
+            rotation: 20,
+            duration: 0.25,
+            repeat: 5,
+            yoyo: true,
+            ease: "power1.inOut"
         });
+
+        // Live stats counting animation
+        animateStatsCounters();
+
+        // Idle floating physics for the EXP card
+        gsap.to(".hero-exp-card", {
+            y: "-=8",
+            duration: 2.8,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // 3D Parallax Mouse Interactivity on Hero Card
+        initHeroMouseParallax();
+
+    } catch (err) {
+        console.warn('GSAP animation warning:', err);
     }
 }
 
-/*=============== STATS COUNTER ANIMATION ===============*/
+/*=============== STATS NUMBER COUNT-UP ===============*/
 function animateStatsCounters() {
     const statElements = document.querySelectorAll('.stat-number');
     statElements.forEach(el => {
@@ -330,9 +278,9 @@ function animateStatsCounters() {
 
         gsap.to(obj, {
             val: target,
-            duration: 2.0,
+            duration: 1.8,
             ease: "power2.out",
-            delay: 0.8,
+            delay: 0.4,
             onUpdate: () => {
                 if (isK) {
                     const formatted = Math.floor(obj.val / 1000);
@@ -345,7 +293,7 @@ function animateStatsCounters() {
     });
 }
 
-/*=============== INTERACTIVE 3D MOUSE PARALLAX ===============*/
+/*=============== 3D MOUSE PARALLAX ===============*/
 function initHeroMouseParallax() {
     const heroCard = document.querySelector('.hero-card');
     const portrait = document.querySelector('.hero-portrait-img');
@@ -358,7 +306,6 @@ function initHeroMouseParallax() {
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-        // Subtle portrait shift
         gsap.to(portrait, {
             x: x * 15,
             y: y * 10,
@@ -366,7 +313,6 @@ function initHeroMouseParallax() {
             ease: "power1.out"
         });
 
-        // Inverse subtle shift for floating card (depth effect)
         if (expCard) {
             gsap.to(expCard, {
                 x: -x * 20,

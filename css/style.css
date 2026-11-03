@@ -50,9 +50,45 @@ body {
     font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
 }
 
+/* Hero Section Explicit Styling to Guarantee Immediate Visibility */
+.hero-card {
+    background-color: #0a0a08 !important;
+    color: #ffffff !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-portrait-img {
+    display: block;
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+    color: #ffffff !important;
+}
+
 .section-title {
-    @apply text-3xl md:text-5xl font-extrabold text-center mb-3 font-display tracking-tight;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 0.75rem;
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.025em;
     color: var(--text-color);
+}
+
+@media (min-width: 768px) {
+    .section-title {
+        font-size: 3rem;
+        line-height: 1;
+    }
 }
 
 html.dark .section-title {
@@ -60,8 +96,11 @@ html.dark .section-title {
 }
 
 .section-subtitle {
-    @apply text-sm md:text-base text-center mb-12 font-medium;
-    padding-bottom: 10px;
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    font-weight: 500;
+    padding-bottom: 0.5rem;
     color: var(--subtitle-color);
 }
 
@@ -79,13 +118,28 @@ html.dark .section-title {
 
 /* Buttons */
 .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold transition-all duration-300;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
     background-color: var(--lime-primary);
     color: #000000;
-    @apply hover:bg-[#e1fa5c] shadow-lg shadow-lime-500/20 active:scale-95;
+    box-shadow: 0 10px 15px -3px rgba(212, 247, 66, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #e1fa5c;
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
 }
 
 .btn-secondary {
@@ -101,11 +155,13 @@ html.dark .btn-secondary {
     color: #ffffff;
 }
 
-/* Cards & UI */
+/* Cards & UI Elements */
 .card {
     background-color: var(--card-bg-color);
     border: 1px solid var(--border-color);
-    @apply rounded-3xl p-6 transition-all duration-300;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
 }
 
 .card:hover {
@@ -119,13 +175,18 @@ html.dark .card:hover {
 
 /* Progress Bar */
 .progress-bar {
-    @apply w-full rounded-full h-2.5 overflow-hidden;
+    width: 100%;
+    border-radius: 9999px;
+    height: 0.625rem;
+    overflow: hidden;
     background-color: var(--border-color);
 }
 
 .progress-bar-fill {
     background-color: var(--lime-primary);
-    @apply h-2.5 rounded-full transition-all duration-1000 ease-out;
+    height: 0.625rem;
+    border-radius: 9999px;
+    transition: all 1s ease-out;
 }
 
 /* Custom Scrollbar */
