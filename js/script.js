@@ -262,6 +262,9 @@ function initGSAPAnimations() {
         // 3D Parallax Mouse Interactivity on Hero Card
         initHeroMouseParallax();
 
+        // ScrollTrigger animations for About section
+        initAboutAnimations();
+
     } catch (err) {
         console.warn('GSAP animation warning:', err);
     }
@@ -343,4 +346,65 @@ function initHeroMouseParallax() {
             });
         }
     });
+}
+
+/*=============== ABOUT SECTION ANIMATIONS ===============*/
+function initAboutAnimations() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+
+    try {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".about-card", {
+            scrollTrigger: {
+                trigger: "#about",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            y: 35,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            clearProps: "all"
+        });
+
+        gsap.from(".about-col-left, .about-col-center, .about-col-right", {
+            scrollTrigger: {
+                trigger: ".about-card",
+                start: "top 75%",
+                toggleActions: "play none none none"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power2.out",
+            clearProps: "all"
+        });
+
+        // 120% counter count-up
+        const counter = document.querySelector('.about-counter');
+        if (counter) {
+            ScrollTrigger.create({
+                trigger: counter,
+                start: "top 85%",
+                once: true,
+                onEnter: () => {
+                    const target = parseFloat(counter.getAttribute('data-target')) || 120;
+                    const suffix = counter.getAttribute('data-suffix') || '%';
+                    const obj = { val: 0 };
+                    gsap.to(obj, {
+                        val: target,
+                        duration: 1.8,
+                        ease: "power2.out",
+                        onUpdate: () => {
+                            counter.textContent = `${Math.floor(obj.val)}${suffix}`;
+                        }
+                    });
+                }
+            });
+        }
+    } catch (e) {
+        console.warn("About GSAP Error:", e);
+    }
 }

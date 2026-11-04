@@ -1,23 +1,100 @@
-<section id="about" class="py-20">
-    <div class="container mx-auto px-6">
-        <h1 class="section-title">About Me</h1>
-        <h3 class="section-subtitle">My Introduction</h3>
-        <div class="grid md:grid-cols-2 gap-12 items-center">
-            <div class="flex justify-center">
-                 <div class="relative w-72 h-72 md:w-96 md:h-96">
-                    <div class="absolute inset-0 rotate-12 rounded-2xl" style="background-color: var(--card-bg-color); border: 1px solid var(--border-color);"></div>
-                    <img src="images/profile.jpg" alt="About Deven" class="relative w-full h-full object-cover rounded-2xl shadow-xl">
+<section id="about" class="w-full py-12 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8">
+    <div class="max-w-[1360px] mx-auto">
+        <div class="about-card rounded-[28px] sm:rounded-[36px] md:rounded-[46px] bg-[#f4f4f4] dark:bg-[#0e0f0e] border border-gray-200/70 dark:border-white/5 p-6 sm:p-10 md:p-14 lg:p-16 shadow-xl relative overflow-hidden transition-all">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
+                
+                <!-- Left Column: Heading, Bio Paragraph, and Hand-drawn Arrow -->
+                <div class="about-col-left lg:col-span-4 flex flex-col justify-between h-full">
+                    <div>
+                        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white font-display mb-6">About Me</h2>
+                        <p class="text-base sm:text-[17px] text-gray-500 dark:text-gray-400 font-normal leading-relaxed max-w-md">
+                            I'm specialize in turning complex problems into elegant solutions. My approach blends creativity with strategic thinking to deliver designs that not only look great but work seamlessly. Ready to start your next project?
+                        </p>
+                    </div>
+
+                    <!-- Subtle curved directional arrow (matching reference image) -->
+                    <div class="hidden lg:flex items-center pt-12 xl:pt-20 pl-4">
+                        <svg class="w-44 xl:w-52 text-gray-300 dark:text-neutral-700/80 transform rotate-[-8deg] pointer-events-none select-none" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 20 120 C 35 55, 105 20, 180 32" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"/>
+                            <path d="M 148 18 L 182 32 L 165 65" stroke="currentColor" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <p class="mb-6 text-justify" style="color: var(--subtitle-color)">I'm a Flutter developer focused on building efficient, scalable, and visually engaging mobile applications. I combine clean UI design with robust backend integration to deliver smooth, high-performance user experiences across both Android and iOS platforms.</p>
-                <div class="grid grid-cols-3 gap-4 text-center mb-8">
-                    <div class="card p-4"><h3 class="text-3xl font-bold text-cyan-400">01+</h3><p class="text-sm" style="color: var(--subtitle-color)">Years Working Experience</p></div>
-                    <div class="card p-4"><h3 class="text-3xl font-bold text-cyan-400">06+</h3><p class="text-sm" style="color: var(--subtitle-color)">Projects Completed</p></div>
-                    <div class="card p-4"><h3 class="text-3xl font-bold text-cyan-400">24/7</h3><p class="text-sm" style="color: var(--subtitle-color)">Online Support</p></div>
+
+                <!-- Center Column: Tall Elevated White Card (120% Stat + Portrait) -->
+                <div class="about-col-center lg:col-span-4 flex justify-center">
+                    <div class="about-stat-card w-full max-w-[380px] bg-white dark:bg-[#161716] border border-black/[0.06] dark:border-white/10 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-black/10 dark:hover:border-white/20">
+                        <div>
+                            <!-- Globe Icon Circle Badge -->
+                            <div class="w-14 h-14 rounded-full bg-gray-100 dark:bg-white/10 border border-gray-200/60 dark:border-white/10 flex items-center justify-center text-gray-800 dark:text-white mb-6 shadow-sm">
+                                <svg class="w-7 h-7 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                                    <path d="M2 12h20"></path>
+                                </svg>
+                            </div>
+
+                            <!-- 120% Metric Count-up -->
+                            <div class="text-5xl sm:text-6xl font-black text-gray-900 dark:text-white tracking-tight font-display mb-3 about-counter" data-target="120" data-suffix="%">
+                                120%
+                            </div>
+                            <p class="text-sm sm:text-[15px] text-gray-500 dark:text-gray-400 font-medium leading-snug mb-7">
+                                Average increase in client engagement in the first 6 months
+                            </p>
+                        </div>
+
+                        <!-- Studio Portrait Image -->
+                        <div class="w-full rounded-2xl overflow-hidden aspect-[4/3] bg-neutral-100 dark:bg-neutral-800 shadow-inner group">
+                            <img src="images/about-portrait.jpg" alt="Deven Rajput" class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105">
+                        </div>
+                    </div>
                 </div>
-                <a href="#" class="btn btn-primary">Download CV <i data-lucide="download" class="w-5 h-5 ml-2"></i></a>
+
+                <!-- Right Column: Square Photo with ↗ Button + Sparkle Key Highlights -->
+                <div class="about-col-right lg:col-span-4 flex flex-col justify-between h-full">
+                    <!-- Square Photo Card with Circular ↗ Button -->
+                    <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-[28px] overflow-hidden relative shadow-lg group bg-neutral-200 dark:bg-neutral-800">
+                        <img src="images/about-headshot.jpg" alt="Deven Rajput" class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105">
+                        <!-- Center Circular Diagonal Arrow Button -->
+                        <a href="#contact" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white text-black shadow-2xl flex items-center justify-center transition-all duration-300 hover:scale-115 hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] cursor-pointer group" title="Connect with me">
+                            <svg class="w-6 h-6 stroke-black stroke-[2.5] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="7" y1="17" x2="17" y2="7"></line>
+                                <polyline points="7 7 17 7 17 17"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Bullet Points with Sparkle Badges -->
+                    <div class="flex flex-col gap-6 mt-8 sm:mt-10 lg:mt-12">
+                        <!-- Highlight 1 -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex-shrink-0 flex items-center justify-center mt-1 shadow-md">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                                </svg>
+                            </div>
+                            <p class="text-sm sm:text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed font-normal">
+                                With 0.5+ years of experience, I specialize in creating intuitive, user-focused designs that solve real-world problems and deliver seamless digital experiences.
+                            </p>
+                        </div>
+
+                        <!-- Highlight 2 -->
+                        <div class="flex items-start gap-4">
+                            <div class="w-10 h-10 rounded-full bg-gray-900 dark:bg-white text-white dark:text-black flex-shrink-0 flex items-center justify-center mt-1 shadow-md">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
+                                </svg>
+                            </div>
+                            <p class="text-sm sm:text-[15px] text-gray-600 dark:text-gray-300 leading-relaxed font-normal">
+                                I thrive on working closely with clients, blending creativity with strategy to bring their vision to life through thoughtful, impactful design solutions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
         </div>
     </div>
 </section>
