@@ -271,8 +271,9 @@ function initGSAPAnimations() {
 function animateStatsCounters() {
     const statElements = document.querySelectorAll('.stat-number');
     statElements.forEach(el => {
-        const target = parseInt(el.getAttribute('data-target'), 10);
+        const target = parseFloat(el.getAttribute('data-target')) || 0;
         const suffix = el.getAttribute('data-suffix') || '';
+        const isDecimal = el.getAttribute('data-decimal') === 'true';
         const isK = el.getAttribute('data-format') === 'k';
         const obj = { val: 0 };
 
@@ -282,7 +283,9 @@ function animateStatsCounters() {
             ease: "power2.out",
             delay: 0.4,
             onUpdate: () => {
-                if (isK) {
+                if (isDecimal) {
+                    el.textContent = `${obj.val.toFixed(1)}${suffix}`;
+                } else if (isK) {
                     const formatted = Math.floor(obj.val / 1000);
                     el.textContent = `${formatted}k${suffix}`;
                 } else {
