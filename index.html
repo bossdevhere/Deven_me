@@ -509,86 +509,151 @@
         </section>
 
         <!-- ==================== PROJECTS SECTION ==================== -->
-        <section id="projects" class="py-20 bg-neutral-50 dark:bg-[#0c0d0c] border-y border-gray-100 dark:border-neutral-900">
-            <div class="max-w-[1360px] mx-auto px-6">
-                <h2 class="section-title">Projects</h2>
-                <p class="section-subtitle">Most Recent Work</p>
-                <div class="flex justify-center space-x-2 sm:space-x-3 mb-10">
-                    <button class="project-filter active-filter" data-filter="all">All</button>
-                    <button class="project-filter" data-filter="app">App</button>
-                    <button class="project-filter" data-filter="web">Web</button>
-                </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 project-container">
-                    <!-- Project 1 -->
-                    <div class="card group overflow-hidden project-item p-0 border border-gray-200 dark:border-neutral-800" data-category="app">
-                        <div class="relative overflow-hidden aspect-video bg-neutral-900">
-                            <img src="https://placehold.co/600x400/121312/d4f742?text=EXPENSE+APP" alt="Expense App" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a href="https://github.com/bossdevhere/Minimal_Expense_App" target="_blank" class="btn btn-primary text-sm py-2 px-5">View Code</a>
-                            </div>
+        <section id="projects" class="w-full py-12 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8">
+            <div class="max-w-[1360px] mx-auto">
+                <!-- Master Dark Projects Card Container (matching reference mockup) -->
+                <div class="projects-master-card rounded-[28px] sm:rounded-[36px] md:rounded-[46px] bg-[#0c0d0c] border border-white/5 p-6 sm:p-10 md:p-14 lg:p-16 shadow-2xl relative overflow-hidden transition-all">
+                    
+                    <!-- Section Header -->
+                    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-12 mb-12 sm:mb-16">
+                        <div class="max-w-2xl">
+                            <h2 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white font-display leading-[1.05] mb-6">
+                                My Best Projects
+                            </h2>
+                            <p class="text-sm sm:text-base text-gray-400 font-normal leading-relaxed max-w-lg">
+                                Whether it's creating a brand identity, designing a website, or developing marketing materials, I strive to understand needs and deliver results that resonate.
+                            </p>
                         </div>
-                        <div class="p-6">
-                            <span class="text-xs font-semibold bg-[#d4f742]/15 text-[#a8cf0e] dark:text-[#d4f742] px-3 py-1 rounded-full uppercase tracking-wider">App</span>
-                            <h3 class="text-lg font-bold mt-3 font-display">Minimal Expense App</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">A minimal Flutter application for tracking daily expenses and financial habits efficiently.</p>
-                        </div>
-                    </div>
-                    <!-- Project 2 -->
-                    <div class="card group overflow-hidden project-item p-0 border border-gray-200 dark:border-neutral-800" data-category="app">
-                        <div class="relative overflow-hidden aspect-video bg-neutral-900">
-                            <img src="https://placehold.co/600x400/121312/d4f742?text=CHAT+BOT" alt="ChatBot" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a href="https://github.com/bossdevhere" target="_blank" class="btn btn-primary text-sm py-2 px-5">View Code</a>
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <span class="text-xs font-semibold bg-[#d4f742]/15 text-[#a8cf0e] dark:text-[#d4f742] px-3 py-1 rounded-full uppercase tracking-wider">App</span>
-                            <h3 class="text-lg font-bold mt-3 font-display">AI ChatBot</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">A smart interactive chatbot app that provides instant, helpful responses powered by AI.</p>
+                        <div class="lg:pb-2">
+                            <a href="https://github.com/bossdevhere?tab=repositories" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-full border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-black transition-all duration-300 hover:scale-105 group shadow-lg">
+                                <span>See More Works</span>
+                                <svg class="w-4 h-4 stroke-current transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
                         </div>
                     </div>
-                    <!-- Project 3 -->
-                    <div class="card group overflow-hidden project-item p-0 border border-gray-200 dark:border-neutral-800" data-category="app">
-                        <div class="relative overflow-hidden aspect-video bg-neutral-900">
-                            <img src="https://placehold.co/600x400/121312/d4f742?text=WEATHER+APP" alt="Weather App" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a href="https://github.com/bossdevhere/WeatherApp" target="_blank" class="btn btn-primary text-sm py-2 px-5">View Code</a>
+
+                    <!-- 6 Projects Grid (2 Rows of 3 Cards) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-9">
+                        
+                        <!-- Project 1: WebsiteBuilder (Hollo.io) -->
+                        <div class="project-item group cursor-pointer" data-category="web">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#161e2e] border border-white/10 shadow-lg mb-4">
+                                <img src="images/projects/website-builder.png" alt="WebsiteBuilder (Hollo.io)" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <a href="https://github.com/bossdevhere/websitebuilder-frontend" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs tracking-wide shadow-xl hover:bg-[#d4f742] transition-colors flex items-center gap-1.5">
+                                        <span>View Code</span>
+                                        <svg class="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </a>
+                                </div>
                             </div>
+                            <h3 class="text-xl font-bold text-white font-display tracking-tight group-hover:text-[#d4f742] transition-colors">
+                                WebsiteBuilder (Hollo.io)
+                            </h3>
+                            <p class="text-sm text-gray-400 font-medium mt-1">
+                                SaaS Platform • Web
+                            </p>
                         </div>
-                        <div class="p-6">
-                            <span class="text-xs font-semibold bg-[#d4f742]/15 text-[#a8cf0e] dark:text-[#d4f742] px-3 py-1 rounded-full uppercase tracking-wider">App</span>
-                            <h3 class="text-lg font-bold mt-3 font-display">Weather Forecast App</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">A Flutter application delivering real-time weather updates, dynamic charts, and forecasts.</p>
-                        </div>
-                    </div>
-                    <!-- Project 4 -->
-                    <div class="card group overflow-hidden project-item p-0 border border-gray-200 dark:border-neutral-800" data-category="web">
-                        <div class="relative overflow-hidden aspect-video bg-neutral-900">
-                            <img src="https://placehold.co/600x400/121312/d4f742?text=TRANSLATOR" alt="Language Translator" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a href="https://github.com/bossdevhere/LanguageTranslatorWeb" target="_blank" class="btn btn-primary text-sm py-2 px-5">View Code</a>
+
+                        <!-- Project 2: MedLookUp -->
+                        <div class="project-item group cursor-pointer" data-category="app">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#061a14] border border-white/10 shadow-lg mb-4">
+                                <img src="images/projects/medlookup.png" alt="MedLookUp" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <a href="https://github.com/bossdevhere/MedLookUp" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs tracking-wide shadow-xl hover:bg-[#d4f742] transition-colors flex items-center gap-1.5">
+                                        <span>View Code</span>
+                                        <svg class="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </a>
+                                </div>
                             </div>
+                            <h3 class="text-xl font-bold text-white font-display tracking-tight group-hover:text-[#d4f742] transition-colors">
+                                MedLookUp
+                            </h3>
+                            <p class="text-sm text-gray-400 font-medium mt-1">
+                                Healthcare • Mobile App
+                            </p>
                         </div>
-                        <div class="p-6">
-                            <span class="text-xs font-semibold bg-[#d4f742]/15 text-[#a8cf0e] dark:text-[#d4f742] px-3 py-1 rounded-full uppercase tracking-wider">Web</span>
-                            <h3 class="text-lg font-bold mt-3 font-display">Language Translator</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">A fast web-based translator supporting dozens of languages via seamless API integration.</p>
-                        </div>
-                    </div>
-                    <!-- Project 5 -->
-                    <div class="card group overflow-hidden project-item p-0 border border-gray-200 dark:border-neutral-800" data-category="web">
-                        <div class="relative overflow-hidden aspect-video bg-neutral-900">
-                            <img src="https://placehold.co/600x400/121312/d4f742?text=PORTFOLIO+WEBSITE" alt="Portfolio" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                            <div class="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <a href="https://github.com/bossdevhere/Deven_me" target="_blank" class="btn btn-primary text-sm py-2 px-5">View Code</a>
+
+                        <!-- Project 3: Chat WebApp -->
+                        <div class="project-item group cursor-pointer" data-category="web">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#0f0f12] border border-white/10 shadow-lg mb-4">
+                                <img src="images/projects/chat-webapp.png" alt="Chat WebApp" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <a href="https://github.com/bossdevhere/chat-webapp" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs tracking-wide shadow-xl hover:bg-[#d4f742] transition-colors flex items-center gap-1.5">
+                                        <span>View Code</span>
+                                        <svg class="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </a>
+                                </div>
                             </div>
+                            <h3 class="text-xl font-bold text-white font-display tracking-tight group-hover:text-[#d4f742] transition-colors">
+                                Chat WebApp
+                            </h3>
+                            <p class="text-sm text-gray-400 font-medium mt-1">
+                                Communication • Web App
+                            </p>
                         </div>
-                        <div class="p-6">
-                            <span class="text-xs font-semibold bg-[#d4f742]/15 text-[#a8cf0e] dark:text-[#d4f742] px-3 py-1 rounded-full uppercase tracking-wider">Web</span>
-                            <h3 class="text-lg font-bold mt-3 font-display">Personal Portfolio</h3>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">A modern high-performance portfolio featuring GSAP animations and Tailwind styling.</p>
+
+                        <!-- Project 4: Lumen E-Commerce -->
+                        <div class="project-item group cursor-pointer" data-category="app">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#f8fafc] border border-white/10 shadow-lg mb-4">
+                                <img src="images/projects/ecommerce-app.png" alt="Lumen E-Commerce" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <a href="https://github.com/bossdevhere/e-commerce-1st-expo-app-" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs tracking-wide shadow-xl hover:bg-[#d4f742] transition-colors flex items-center gap-1.5">
+                                        <span>View Code</span>
+                                        <svg class="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display tracking-tight group-hover:text-[#d4f742] transition-colors">
+                                Lumen Store
+                            </h3>
+                            <p class="text-sm text-gray-400 font-medium mt-1">
+                                E-Commerce • React Native
+                            </p>
                         </div>
+
+                        <!-- Project 5: Finey (Featured Phone Mockup) -->
+                        <div class="project-item group cursor-pointer" data-category="app">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#0b0c0b] border border-white/10 shadow-lg mb-4 flex items-center justify-center">
+                                <img src="images/projects/finey-mobile.png" alt="Finey" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <a href="https://github.com/bossdevhere/Finey" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs tracking-wide shadow-xl hover:bg-[#d4f742] transition-colors flex items-center gap-1.5">
+                                        <span>View Code</span>
+                                        <svg class="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display tracking-tight group-hover:text-[#d4f742] transition-colors">
+                                Finey
+                            </h3>
+                            <p class="text-sm text-gray-400 font-medium mt-1">
+                                Finance & Tasks • Flutter App
+                            </p>
+                        </div>
+
+                        <!-- Project 6: Story Buddy -->
+                        <div class="project-item group cursor-pointer" data-category="app">
+                            <div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-[#1c1427] border border-white/10 shadow-lg mb-4">
+                                <img src="images/projects/story-buddy.png" alt="Story Buddy" class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                                <div class="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center gap-3">
+                                    <a href="https://github.com/bossdevhere/story-buddy" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-white text-black font-semibold text-xs tracking-wide shadow-xl hover:bg-[#d4f742] transition-colors flex items-center gap-1.5">
+                                        <span>View Code</span>
+                                        <svg class="w-3.5 h-3.5 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display tracking-tight group-hover:text-[#d4f742] transition-colors">
+                                Story Buddy
+                            </h3>
+                            <p class="text-sm text-gray-400 font-medium mt-1">
+                                EdTech • Flutter App
+                            </p>
+                        </div>
+
                     </div>
+
                 </div>
             </div>
         </section>

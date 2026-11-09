@@ -268,6 +268,9 @@ function initGSAPAnimations() {
         // ScrollTrigger animations for Services section
         initServicesAnimations();
 
+        // ScrollTrigger animations for Projects section
+        initProjectsAnimations();
+
     } catch (err) {
         console.warn('GSAP animation warning:', err);
     }
@@ -436,3 +439,48 @@ function initServicesAnimations() {
         console.warn("Services GSAP Error:", e);
     }
 }
+
+/*=============== PROJECTS SECTION ANIMATIONS ===============*/
+function initProjectsAnimations() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+
+    try {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".projects-master-card", {
+            scrollTrigger: {
+                trigger: "#projects",
+                start: "top 85%",
+                toggleActions: "play none none none"
+            },
+            y: 35,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            clearProps: "all"
+        });
+
+        gsap.from("#projects .project-item", {
+            scrollTrigger: {
+                trigger: "#projects",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.1,
+            ease: "power2.out",
+            clearProps: "all"
+        });
+    } catch (e) {
+        console.warn("Projects GSAP Error:", e);
+    }
+}
+
+// Refresh ScrollTrigger when images load
+window.addEventListener('load', () => {
+    if (window.ScrollTrigger) {
+        ScrollTrigger.refresh();
+    }
+});
