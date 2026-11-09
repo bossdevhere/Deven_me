@@ -265,6 +265,9 @@ function initGSAPAnimations() {
         // ScrollTrigger animations for About section
         initAboutAnimations();
 
+        // ScrollTrigger animations for Services section
+        initServicesAnimations();
+
     } catch (err) {
         console.warn('GSAP animation warning:', err);
     }
@@ -406,5 +409,30 @@ function initAboutAnimations() {
         }
     } catch (e) {
         console.warn("About GSAP Error:", e);
+    }
+}
+
+/*=============== SERVICES SECTION ANIMATIONS ===============*/
+function initServicesAnimations() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+
+    try {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from("#services .service-card", {
+            scrollTrigger: {
+                trigger: "#services",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            y: 35,
+            opacity: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power2.out",
+            clearProps: "all"
+        });
+    } catch (e) {
+        console.warn("Services GSAP Error:", e);
     }
 }

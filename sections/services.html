@@ -1,10 +1,107 @@
-<section id="services" class="py-20">
-    <div class="container mx-auto px-6">
-        <h2 class="section-title">Services</h2>
-        <span class="section-subtitle">What I offer</span>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="card group rounded-2xl hover:border-cyan-500 p-8 hover:-translate-y-2"><i data-lucide="smartphone" class="w-10 h-10 text-cyan-400 mb-4"></i><h3 class="text-xl font-bold mb-2 dark:text-white">App Developer</h3><p class="mb-4" style="color: var(--subtitle-color)">Building efficient, scalable, and high-performing mobile applications using Flutter.</p><a href="#projects" class="service-link text-cyan-400 font-semibold inline-flex items-center" data-filter-target="app">View Project <i data-lucide="arrow-right" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"></i></a></div>
-            <div class="card group rounded-2xl hover:border-cyan-500 p-8 hover:-translate-y-2"><i data-lucide="code" class="w-10 h-10 text-cyan-400 mb-4"></i><h3 class="text-xl font-bold mb-2 dark:text-white">Web Front-End Developer</h3><p class="mb-4" style="color: var(--subtitle-color)">Designing and developing responsive, modern web interfaces with React.</p><a href="#projects" class="service-link text-cyan-400 font-semibold inline-flex items-center" data-filter-target="web">View Project <i data-lucide="arrow-right" class="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"></i></a></div>
+<section id="services" class="w-full py-16 sm:py-20 md:py-24 px-3 sm:px-6 md:px-8">
+    <div class="max-w-[1360px] mx-auto">
+        <!-- Top Header: Title on Left, Description Paragraph on Right -->
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 lg:gap-12 mb-12 sm:mb-16">
+            <div class="max-w-2xl">
+                <span class="text-xs sm:text-sm font-bold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 font-sans block mb-3">
+                    OUR FEATURES
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white font-display leading-[1.15]">
+                    I Have Expertise to<br class="hidden sm:inline"> Tackle Challenges
+                </h2>
+            </div>
+            <div class="max-w-md lg:max-w-lg lg:pb-1">
+                <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 font-normal leading-relaxed">
+                    With experience in my field, I can tackle challenges and provide solutions. My skills enhance my problem-solving and make me a valuable asset to any team.
+                </p>
+            </div>
+        </div>
+
+        <!-- 4 Feature Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
+            <!-- Card 1: UI Design -->
+            <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                <div>
+                    <!-- Yellow Circle Badge with Icon -->
+                    <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
+                        <svg class="w-6 h-6 stroke-black stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3" fill="black"></circle>
+                            <path d="M5 12h4M15 12h4"></path>
+                            <circle cx="3" cy="12" r="1.5" fill="black"></circle>
+                            <circle cx="21" cy="12" r="1.5" fill="black"></circle>
+                            <path d="M12 5v4M12 15v4"></path>
+                            <circle cx="12" cy="3" r="1.5" fill="black"></circle>
+                            <circle cx="12" cy="21" r="1.5" fill="black"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-[22px] font-bold text-gray-900 dark:text-white font-display mb-3 tracking-tight">
+                        UI Design
+                    </h3>
+                    <p class="text-sm sm:text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed font-normal">
+                        With a strong background in UI design, I create user-friendly solutions that meet user needs and enhance their experience.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 2: UX Research -->
+            <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                <div>
+                    <!-- Yellow Circle Badge with Icon -->
+                    <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
+                        <svg class="w-6 h-6 stroke-black stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="6" y="3" width="12" height="18" rx="2"></rect>
+                            <line x1="9" y1="8" x2="15" y2="8"></line>
+                            <line x1="9" y1="12" x2="15" y2="12"></line>
+                            <line x1="9" y1="16" x2="12" y2="16"></line>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-[22px] font-bold text-gray-900 dark:text-white font-display mb-3 tracking-tight">
+                        UX Research
+                    </h3>
+                    <p class="text-sm sm:text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed font-normal">
+                        With a strong background in UI design, I create user-friendly solutions that meet user needs and enhance their experience.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 3: Branding Design -->
+            <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                <div>
+                    <!-- Yellow Circle Badge with Icon -->
+                    <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
+                        <svg class="w-6 h-6 fill-black" viewBox="0 0 24 24">
+                            <rect x="3" y="8" width="5.5" height="12" rx="2.5" transform="rotate(-20 3 8)"></rect>
+                            <rect x="13.5" y="4" width="5.5" height="16" rx="2.5"></rect>
+                            <circle cx="16.25" cy="16.5" r="1.2" fill="#fbf152"></circle>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-[22px] font-bold text-gray-900 dark:text-white font-display mb-3 tracking-tight">
+                        Branding Design
+                    </h3>
+                    <p class="text-sm sm:text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed font-normal">
+                        With a strong background in UI design, I create user-friendly solutions that meet user needs and enhance their experience.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card 4: Interaction Design -->
+            <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                <div>
+                    <!-- Yellow Circle Badge with Icon -->
+                    <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
+                        <svg class="w-6 h-6 stroke-black stroke-[2.2]" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="5" stroke-width="2"></rect>
+                            <path d="M9 10l-2 2 2 2M15 10l2 2-2 2"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl sm:text-[22px] font-bold text-gray-900 dark:text-white font-display mb-3 tracking-tight">
+                        Interaction Design
+                    </h3>
+                    <p class="text-sm sm:text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed font-normal">
+                        With a strong background in UI design, I create user-friendly solutions that meet user needs and enhance their experience.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </section>
