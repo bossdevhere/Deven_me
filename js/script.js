@@ -177,6 +177,9 @@ function initializePortfolio() {
         });
     });
 
+    /*=============== CONTACT SECTION INTERACTION ===============*/
+    initContactInteractions();
+
     /*=============== BULLETPROOF GSAP ANIMATIONS ===============*/
     initGSAPAnimations();
 }
@@ -270,6 +273,9 @@ function initGSAPAnimations() {
 
         // ScrollTrigger animations for Projects section
         initProjectsAnimations();
+
+        // ScrollTrigger animations for Contact section
+        initContactAnimations();
 
     } catch (err) {
         console.warn('GSAP animation warning:', err);
@@ -475,6 +481,118 @@ function initProjectsAnimations() {
         });
     } catch (e) {
         console.warn("Projects GSAP Error:", e);
+    }
+}
+
+/*=============== CONTACT SECTION ANIMATIONS ===============*/
+function initContactAnimations() {
+    if (!window.gsap || !window.ScrollTrigger) return;
+
+    try {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".contact-master-card", {
+            scrollTrigger: {
+                trigger: "#contact",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.85,
+            ease: "power3.out",
+            clearProps: "all"
+        });
+    } catch (e) {
+        console.warn("Contact GSAP Error:", e);
+    }
+}
+
+/*=============== CONTACT SECTION INTERACTION ===============*/
+function initContactInteractions() {
+    const ctaView = document.getElementById('contact-cta-view');
+    const formView = document.getElementById('contact-form-view');
+    const openBtn = document.getElementById('open-contact-form-btn');
+    const closeBtn = document.getElementById('close-contact-form-btn');
+    const form = document.getElementById('project-contact-form');
+    const feedback = document.getElementById('form-feedback');
+    const nameInput = document.getElementById('form-name');
+
+    if (!ctaView || !formView) return;
+
+    const showForm = () => {
+        ctaView.style.opacity = '0';
+        ctaView.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+            ctaView.classList.add('hidden');
+            formView.classList.remove('hidden');
+            setTimeout(() => {
+                formView.classList.remove('opacity-0', 'scale-95');
+                formView.classList.add('opacity-100', 'scale-100');
+                if (nameInput) nameInput.focus();
+            }, 30);
+        }, 250);
+    };
+
+    const hideForm = () => {
+        formView.classList.remove('opacity-100', 'scale-100');
+        formView.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            formView.classList.add('hidden');
+            ctaView.classList.remove('hidden');
+            setTimeout(() => {
+                ctaView.style.opacity = '1';
+                ctaView.style.transform = 'scale(1)';
+            }, 30);
+        }, 250);
+    };
+
+    if (openBtn) {
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showForm();
+        });
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            hideForm();
+        });
+    }
+
+    // Connect any "Let's talk" buttons to open the form directly
+    const talkButtons = document.querySelectorAll('a[href="#contact"]');
+    talkButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setTimeout(showForm, 400);
+        });
+    });
+
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('form-submit-btn');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `<span>Sending...</span>`;
+            }
+            setTimeout(() => {
+                if (feedback) {
+                    feedback.classList.remove('hidden');
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Sent Successfully! ✓</span>`;
+                }
+                form.reset();
+                setTimeout(() => {
+                    if (submitBtn) {
+                        submitBtn.innerHTML = `<span>Send Message</span><svg class="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>`;
+                    }
+                }, 4000);
+            }, 600);
+        });
     }
 }
 
