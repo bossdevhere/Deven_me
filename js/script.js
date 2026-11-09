@@ -206,8 +206,8 @@ function initGSAPAnimations() {
         )
         // Hero card gentle scale and reveal
         .fromTo(".hero-card",
-            { scale: 0.98, opacity: 0 },
-            { scale: 1, opacity: 1, duration: 0.8, ease: "power2.out", clearProps: "all" },
+            { scale: 0.98 },
+            { scale: 1, duration: 0.8, ease: "power2.out", clearProps: "all" },
             "-=0.4"
         )
         // Hero portrait gentle zoom settle

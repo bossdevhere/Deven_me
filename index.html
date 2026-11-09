@@ -43,7 +43,12 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="antialiased bg-[#ffffff] dark:bg-[#080808] text-gray-900 dark:text-gray-100 transition-colors duration-300">
+<body class="antialiased text-gray-900 dark:text-gray-100 transition-colors duration-300 relative min-h-screen">
+
+    <!-- Global Fixed Cloud Background -->
+    <div class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat bg-fixed" style="z-index: -20; background-image: url('images/contact-clouds.jpg');"></div>
+    <!-- Global Ambient Theme Overlay for contrast -->
+    <div class="fixed inset-0 pointer-events-none bg-white/35 dark:bg-black/65 backdrop-blur-[1px] transition-colors duration-500" style="z-index: -10;"></div>
 
     <!-- ==================== HEADER ==================== -->
     <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 sm:py-4 px-4 sm:px-8">
@@ -242,7 +247,7 @@
         <!-- ==================== ABOUT SECTION ==================== -->
         <section id="about" class="w-full py-12 sm:py-16 md:py-20 px-3 sm:px-6 md:px-8">
             <div class="max-w-[1360px] mx-auto">
-                <div class="about-card rounded-[28px] sm:rounded-[36px] md:rounded-[46px] bg-[#f4f4f4] dark:bg-[#0e0f0e] border border-gray-200/70 dark:border-white/5 p-6 sm:p-10 md:p-14 lg:p-16 shadow-xl relative overflow-hidden transition-all">
+                <div class="about-card rounded-[28px] sm:rounded-[36px] md:rounded-[46px] bg-white/80 dark:bg-[#0e0f0e]/85 backdrop-blur-2xl border border-white/80 dark:border-white/10 p-6 sm:p-10 md:p-14 lg:p-16 shadow-2xl relative overflow-hidden transition-all">
                     
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
                         
@@ -342,7 +347,7 @@
         </section>
 
         <!-- ==================== SKILLS SECTION ==================== -->
-        <section id="skills" class="py-20 bg-neutral-50 dark:bg-[#0c0d0c] border-y border-gray-100 dark:border-neutral-900">
+        <section id="skills" class="w-full py-16 sm:py-20 md:py-24 px-3 sm:px-6 md:px-8">
             <div class="max-w-[1360px] mx-auto px-6">
                 <h2 class="section-title">Skills</h2>
                 <p class="section-subtitle">My Technical Level</p>
@@ -422,7 +427,7 @@
                 <!-- 4 Feature Cards Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
                     <!-- Card 1: UI Design -->
-                    <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                    <div class="service-card group bg-white/80 dark:bg-[#141514]/85 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-md hover:shadow-2xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
                         <div>
                             <!-- Yellow Circle Badge with Icon -->
                             <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
@@ -446,7 +451,7 @@
                     </div>
 
                     <!-- Card 2: UX Research -->
-                    <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                    <div class="service-card group bg-white/80 dark:bg-[#141514]/85 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-md hover:shadow-2xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
                         <div>
                             <!-- Yellow Circle Badge with Icon -->
                             <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
@@ -467,7 +472,7 @@
                     </div>
 
                     <!-- Card 3: Branding Design -->
-                    <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                    <div class="service-card group bg-white/80 dark:bg-[#141514]/85 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-md hover:shadow-2xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
                         <div>
                             <!-- Yellow Circle Badge with Icon -->
                             <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
@@ -487,7 +492,7 @@
                     </div>
 
                     <!-- Card 4: Interaction Design -->
-                    <div class="service-card group bg-[#f6f6f6] dark:bg-[#141514] border border-gray-200/60 dark:border-white/5 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
+                    <div class="service-card group bg-white/80 dark:bg-[#141514]/85 backdrop-blur-xl border border-white/80 dark:border-white/10 rounded-[24px] sm:rounded-[28px] p-7 sm:p-8 flex flex-col justify-between shadow-md hover:shadow-2xl hover:border-black/10 dark:hover:border-[#fbf152]/30 transition-all duration-300 hover:-translate-y-1.5">
                         <div>
                             <!-- Yellow Circle Badge with Icon -->
                             <div class="w-[52px] h-[52px] rounded-full bg-[#fbf152] flex items-center justify-center text-black shadow-md mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(251,241,82,0.4)] transition-all duration-300">
@@ -659,10 +664,7 @@
         </section>
 
         <!-- ==================== CONTACT SECTION ==================== -->
-        <section id="contact" class="w-full py-16 sm:py-20 md:py-28 px-3 sm:px-6 md:px-8 relative overflow-hidden bg-cover bg-center" style="background-image: url('images/contact-clouds.jpg');">
-            <!-- Subtle gradient overlay to blend seamlessly with theme -->
-            <div class="absolute inset-0 bg-white/40 dark:bg-black/60 backdrop-blur-[2px] transition-colors duration-500"></div>
-
+        <section id="contact" class="w-full py-16 sm:py-20 md:py-28 px-3 sm:px-6 md:px-8 relative overflow-hidden">
             <div class="relative max-w-5xl mx-auto z-10">
                 <!-- Floating Glassmorphic Master Contact Card -->
                 <div class="contact-master-card relative rounded-[32px] sm:rounded-[44px] md:rounded-[52px] bg-white/75 dark:bg-[#121312]/85 backdrop-blur-2xl border border-white/80 dark:border-white/10 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.18)] p-6 sm:p-12 md:p-16 text-center transition-all duration-500">
@@ -788,7 +790,7 @@
     </main>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="py-12 border-t border-gray-100 dark:border-neutral-900 bg-white dark:bg-[#080808]">
+    <footer class="py-12 border-t border-gray-200/50 dark:border-white/5 bg-white/60 dark:bg-[#080808]/80 backdrop-blur-md">
         <div class="max-w-[1360px] mx-auto px-6 text-center text-gray-500 dark:text-gray-400">
             <div class="flex items-center justify-center gap-3 mb-4">
                 <img src="images/logo.png" alt="Logo" class="w-9 h-9 rounded-full bg-black p-1.5">

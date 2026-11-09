@@ -1,9 +1,9 @@
 /* Custom CSS Variables & Theming */
 :root {
-    --bg-color: #ffffff;
+    --bg-color: #e5e7eb;
     --text-color: #111827;
-    --card-bg-color: #f9fafb;
-    --border-color: #e5e7eb;
+    --card-bg-color: rgba(255, 255, 255, 0.8);
+    --border-color: rgba(255, 255, 255, 0.7);
     --header-bg: rgba(255, 255, 255, 0.85);
     --subtitle-color: #6b7280;
     --lime-primary: #d4f742;
@@ -16,10 +16,10 @@
 }
 
 html.dark {
-    --bg-color: #080808;
+    --bg-color: #0c0d0c;
     --text-color: #f3f4f6;
-    --card-bg-color: #121312;
-    --border-color: #262626;
+    --card-bg-color: rgba(18, 19, 18, 0.85);
+    --border-color: rgba(255, 255, 255, 0.1);
     --header-bg: rgba(8, 8, 8, 0.85);
     --subtitle-color: #9ca3af;
     --lime-primary: #d4f742;
@@ -40,9 +40,14 @@ html.dark {
 /* Base Body and Typography */
 body {
     font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
-    background-color: var(--bg-color);
+    background-color: #e5e7eb;
+    background-image: url('../images/contact-clouds.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
     overflow-x: hidden;
 }
 
@@ -159,6 +164,8 @@ html.dark .btn-secondary {
 .card {
     background-color: var(--card-bg-color);
     border: 1px solid var(--border-color);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 1.5rem;
     padding: 1.5rem;
     transition: all 0.3s ease;
