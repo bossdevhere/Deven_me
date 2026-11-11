@@ -245,6 +245,12 @@ html.dark .card:hover {
    RESPONSIVE ENHANCEMENTS & MOBILE VISIBILITY SAFEGUARD
    ======================================================== */
 @media (max-width: 767px) {
+    /* Hero portrait slightly smaller on mobile view for optimal balance and readability */
+    .hero-portrait-img {
+        transform: scale(0.8) !important;
+        transform-origin: 50% 42% !important;
+    }
+
     /* Guarantee all cards and elements are immediately rendered and visible on mobile */
     .about-card,
     .about-col-left,
@@ -252,7 +258,7 @@ html.dark .card:hover {
     .about-col-right,
     .service-card,
     .projects-master-card,
-    .project-item,
+    .project-item:not(.project-item-extra),
     .contact-master-card {
         opacity: 1 !important;
         transform: none !important;

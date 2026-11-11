@@ -187,6 +187,44 @@ function initializePortfolio() {
         });
     });
 
+    /*=============== MOBILE VIEW ALL PROJECTS TOGGLE ===============*/
+    const viewAllBtn = document.getElementById('view-all-projects-btn');
+    const viewAllText = document.getElementById('view-all-projects-text');
+    const viewAllIcon = document.getElementById('view-all-projects-icon');
+    const extraProjects = document.querySelectorAll('.project-item-extra');
+
+    if (viewAllBtn && extraProjects.length) {
+        let isExpanded = false;
+        viewAllBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+            extraProjects.forEach(item => {
+                if (isExpanded) {
+                    item.classList.remove('hidden');
+                    item.classList.add('flex');
+                } else {
+                    item.classList.remove('flex');
+                    item.classList.add('hidden');
+                }
+            });
+
+            if (viewAllText) {
+                viewAllText.textContent = isExpanded ? 'Show Less' : 'View All Projects (6)';
+            }
+            if (viewAllIcon) {
+                viewAllIcon.style.transform = isExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+            }
+            if (!isExpanded) {
+                const projectsSection = document.getElementById('projects');
+                if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            if (window.ScrollTrigger) {
+                ScrollTrigger.refresh();
+            }
+        });
+    }
+
     /*=============== CONTACT SECTION INTERACTION ===============*/
     initContactInteractions();
 
@@ -220,10 +258,11 @@ function initGSAPAnimations() {
             { scale: 1, duration: 0.8, ease: "power2.out", clearProps: "all" },
             "-=0.4"
         )
-        // Hero portrait gentle zoom settle
-        .fromTo(".hero-portrait-img",
-            { scale: 1.05, opacity: 0.5 },
-            { scale: 1, opacity: 1, duration: 1.0, ease: "power2.out", clearProps: "all" },
+        // Hero portrait gentle zoom settle (smaller scale on mobile)
+        const isMobileScreen = window.innerWidth < 768;
+        tl.fromTo(".hero-portrait-img",
+            { scale: isMobileScreen ? 0.85 : 1.05, opacity: 0.5 },
+            { scale: isMobileScreen ? 0.8 : 1, opacity: 1, duration: 1.0, ease: "power2.out", clearProps: isMobileScreen ? "opacity" : "all" },
             "-=0.6"
         )
         // Hero headline reveal

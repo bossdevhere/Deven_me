@@ -127,7 +127,7 @@
                 </div>
 
                 <!-- Project 3: Finey -->
-                <div class="project-item group flex flex-col justify-between" data-category="app">
+                <div class="project-item project-item-extra group hidden md:flex flex-col justify-between" data-category="app">
                     <div class="flex flex-col">
                         <!-- Title & Category Header (First on mobile, below image on desktop) -->
                         <div class="order-1 md:order-2 mb-3 md:mb-2">
@@ -170,7 +170,7 @@
                 </div>
 
                 <!-- Project 4: Skippr -->
-                <div class="project-item group flex flex-col justify-between" data-category="app">
+                <div class="project-item project-item-extra group hidden md:flex flex-col justify-between" data-category="app">
                     <div class="flex flex-col">
                         <!-- Title & Category Header (First on mobile, below image on desktop) -->
                         <div class="order-1 md:order-2 mb-3 md:mb-2">
@@ -224,7 +224,7 @@
                 </div>
 
                 <!-- Project 5: Chat WebApp -->
-                <div class="project-item group flex flex-col justify-between" data-category="web">
+                <div class="project-item project-item-extra group hidden md:flex flex-col justify-between" data-category="web">
                     <div class="flex flex-col">
                         <!-- Title & Category Header (First on mobile, below image on desktop) -->
                         <div class="order-1 md:order-2 mb-3 md:mb-2">
@@ -269,7 +269,7 @@
                 </div>
 
                 <!-- Project 6: Story Buddy -->
-                <div class="project-item group flex flex-col justify-between" data-category="app">
+                <div class="project-item project-item-extra group hidden md:flex flex-col justify-between" data-category="app">
                     <div class="flex flex-col">
                         <!-- Title & Category Header (First on mobile, below image on desktop) -->
                         <div class="order-1 md:order-2 mb-3 md:mb-2">
@@ -311,6 +311,16 @@
                     </div>
                 </div>
 
+            </div>
+
+            <!-- Mobile "View All Projects" Toggle Button (Only visible on mobile) -->
+            <div class="flex justify-center mt-8 md:hidden">
+                <button id="view-all-projects-btn" type="button" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/10 hover:bg-white/15 active:scale-95 border border-white/20 text-white text-xs sm:text-sm font-semibold tracking-wide transition-all shadow-lg cursor-pointer">
+                    <span id="view-all-projects-text">View All Projects (6)</span>
+                    <svg id="view-all-projects-icon" class="w-4 h-4 stroke-current transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
             </div>
 
         </div>
