@@ -4,17 +4,23 @@
             
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-stretch">
                 
-                <!-- Left Column: Heading, Bio Paragraph, and Hand-drawn Arrow -->
+                <!-- Left Column: Heading, Subheading, Bio Paragraph, and Hand-drawn Arrow -->
                 <div class="about-col-left lg:col-span-4 flex flex-col justify-between">
                     <div>
-                        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white font-display mb-6">About Me</h2>
-                        <p class="text-base sm:text-[17px] text-gray-500 dark:text-gray-400 font-normal leading-relaxed max-w-md">
-                            I'm specialize in turning complex problems into elegant solutions. My approach blends creativity with strategic thinking to deliver designs that not only look great but work seamlessly. Ready to start your next project?
-                        </p>
+                        <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white font-display mb-3">About Me</h2>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-[#d4f742] font-display mb-4">Turning Ideas Into Functional Digital Products.</h3>
+                        <div class="space-y-3.5 text-sm sm:text-[15px] text-gray-600 dark:text-gray-300 font-normal leading-relaxed">
+                            <p>
+                                I'm Deven Rajput, a Full Stack App & Web Developer passionate about building applications that solve real-world problems.
+                            </p>
+                            <p class="text-gray-500 dark:text-gray-400">
+                                My development journey revolves around creating intuitive mobile experiences, responsive websites, and scalable backend systems. I enjoy working across the entire development process — from designing interfaces and developing frontend features to integrating APIs and managing databases.
+                            </p>
+                        </div>
                     </div>
 
                     <!-- Subtle curved directional arrow (pointing towards center image) -->
-                    <div class="hidden lg:flex items-center pt-10 xl:pt-16 pl-4">
+                    <div class="hidden lg:flex items-center pt-8 xl:pt-12 pl-4">
                         <svg class="w-44 xl:w-52 text-gray-300 dark:text-neutral-700/80 transform rotate-[-8deg] pointer-events-none select-none" viewBox="0 0 200 130" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M 20 120 C 35 55, 105 20, 180 32" stroke="currentColor" stroke-width="6.5" stroke-linecap="round"/>
                             <path d="M 148 18 L 182 32 L 165 65" stroke="currentColor" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -26,12 +32,19 @@
                 <div class="about-col-center lg:col-span-4 flex justify-center items-center">
                     <div class="w-full max-w-[380px] h-full rounded-[28px] sm:rounded-[34px] overflow-hidden shadow-xl border border-black/[0.06] dark:border-white/10 bg-neutral-100 dark:bg-[#161716] group relative transition-all duration-300 hover:shadow-2xl hover:border-black/15 dark:hover:border-white/20 flex flex-col">
                         <div class="w-full h-full min-h-[460px] sm:min-h-[500px] overflow-hidden relative">
-                            <img src="images/about-me.jpg" alt="Deven Rajput" class="w-full h-full object-cover object-[center_28%] transition-transform duration-700 ease-out group-hover:scale-105">
+                            <img src="images/about-me.jpg" alt="Deven Rajput - Full Stack App & Web Developer" class="w-full h-full object-cover object-[center_28%] transition-transform duration-700 ease-out group-hover:scale-105">
+                            
+                            <!-- Profile Description Overlay Card -->
+                            <div class="absolute bottom-4 left-4 right-4 p-3.5 sm:p-4 rounded-2xl bg-black/70 backdrop-blur-md border border-white/15 text-white shadow-xl">
+                                <p class="text-xs sm:text-[13px] text-gray-200 leading-snug font-normal">
+                                    A developer who enjoys turning ideas into working products, learning through experimentation, and solving problems with technology.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Column: Elevated Stat Card with 120% Metric + Text Highlights in Block -->
+                <!-- Right Column: Elevated Card with End-to-End Development + Text Highlights in Block -->
                 <div class="about-col-right lg:col-span-4 flex justify-center">
                     <div class="about-stat-card w-full max-w-[380px] bg-white dark:bg-[#161716] border border-black/[0.06] dark:border-white/10 rounded-[28px] sm:rounded-[32px] p-6 sm:p-7 shadow-xl flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:border-black/10 dark:hover:border-white/20">
                         <div>
@@ -52,12 +65,12 @@
                                 </a>
                             </div>
 
-                            <!-- 120% Metric Count-up -->
-                            <div class="text-5xl sm:text-6xl font-black text-gray-900 dark:text-white tracking-tight font-display mb-3 about-counter" data-target="120" data-suffix="%">
-                                120%
+                            <!-- End-to-End Development Focus Header -->
+                            <div class="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white tracking-tight font-display mb-2 leading-tight">
+                                End-to-End Development
                             </div>
-                            <p class="text-sm sm:text-[15px] text-gray-500 dark:text-gray-400 font-medium leading-snug mb-6">
-                                Average increase in client engagement in the first 6 months
+                            <p class="text-sm sm:text-[14.5px] text-gray-500 dark:text-gray-400 font-medium leading-relaxed mb-6">
+                                From frontend interfaces to backend integrations, building complete digital experiences.
                             </p>
 
                             <!-- Subtle Divider -->
@@ -73,7 +86,7 @@
                                         </svg>
                                     </div>
                                     <p class="text-xs sm:text-[13.5px] text-gray-600 dark:text-gray-300 leading-relaxed font-normal">
-                                        With 0.5+ years of experience, I specialize in creating intuitive, user-focused designs that solve real-world problems and deliver seamless digital experiences.
+                                        I've worked with technologies like Flutter, React Native, React.js, Node.js, Firebase, and Supabase, building projects that combine functionality, performance, and usability.
                                     </p>
                                 </div>
 
@@ -85,7 +98,7 @@
                                         </svg>
                                     </div>
                                     <p class="text-xs sm:text-[13.5px] text-gray-600 dark:text-gray-300 leading-relaxed font-normal">
-                                        I thrive on working closely with clients, blending creativity with strategy to bring their vision to life through thoughtful, impactful design solutions.
+                                        I'm always exploring new technologies, improving my problem-solving skills, and looking for opportunities to build meaningful products and grow as a developer.
                                     </p>
                                 </div>
                             </div>
