@@ -83,29 +83,37 @@ function initializePortfolio() {
     const navMenu = document.getElementById('mobile-menu');
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
+    const navOverlay = document.getElementById('mobile-menu-overlay');
 
-    if (navToggle && navMenu) {
-        navToggle.addEventListener('click', () => {
-            navMenu.classList.remove('-right-full');
-            navMenu.classList.add('right-0');
-        });
-    }
+    const openMenu = () => {
+        if (!navMenu) return;
+        navMenu.classList.remove('-right-full');
+        navMenu.classList.add('right-0');
+        if (navOverlay) {
+            navOverlay.classList.remove('hidden');
+            requestAnimationFrame(() => navOverlay.classList.remove('opacity-0'));
+        }
+        document.body.classList.add('overflow-hidden');
+    };
 
-    if (navClose && navMenu) {
-        navClose.addEventListener('click', () => {
-            navMenu.classList.remove('right-0');
-            navMenu.classList.add('-right-full');
-        });
-    }
+    const closeMenu = () => {
+        if (!navMenu) return;
+        navMenu.classList.remove('right-0');
+        navMenu.classList.add('-right-full');
+        if (navOverlay) {
+            navOverlay.classList.add('opacity-0');
+            setTimeout(() => navOverlay.classList.add('hidden'), 300);
+        }
+        document.body.classList.remove('overflow-hidden');
+    };
+
+    if (navToggle) navToggle.addEventListener('click', openMenu);
+    if (navClose) navClose.addEventListener('click', closeMenu);
+    if (navOverlay) navOverlay.addEventListener('click', closeMenu);
 
     const navLinks = document.querySelectorAll('#mobile-menu .nav-link');
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (navMenu) {
-                navMenu.classList.remove('right-0');
-                navMenu.classList.add('-right-full');
-            }
-        });
+        link.addEventListener('click', closeMenu);
     });
 
     /*=============== HEADER SCROLL EFFECT ===============*/
@@ -155,9 +163,11 @@ function initializePortfolio() {
         const scrollUpBtn = document.getElementById('scroll-up');
         if (!scrollUpBtn) return;
         if (window.scrollY >= 400) {
-            scrollUpBtn.classList.replace('-bottom-1/4', 'bottom-6');
+            scrollUpBtn.classList.remove('-bottom-1/4');
+            scrollUpBtn.classList.add('bottom-4', 'sm:bottom-6');
         } else {
-            scrollUpBtn.classList.replace('bottom-6', '-bottom-1/4');
+            scrollUpBtn.classList.remove('bottom-4', 'sm:bottom-6');
+            scrollUpBtn.classList.add('-bottom-1/4');
         }
     };
     window.addEventListener('scroll', scrollUp);
@@ -363,6 +373,7 @@ function initHeroMouseParallax() {
 /*=============== ABOUT SECTION ANIMATIONS ===============*/
 function initAboutAnimations() {
     if (!window.gsap || !window.ScrollTrigger) return;
+    if (window.innerWidth < 768) return; // Immediate visibility on mobile devices
 
     try {
         gsap.registerPlugin(ScrollTrigger);
@@ -424,6 +435,7 @@ function initAboutAnimations() {
 /*=============== SERVICES SECTION ANIMATIONS ===============*/
 function initServicesAnimations() {
     if (!window.gsap || !window.ScrollTrigger) return;
+    if (window.innerWidth < 768) return; // Immediate visibility on mobile devices
 
     try {
         gsap.registerPlugin(ScrollTrigger);
@@ -449,6 +461,7 @@ function initServicesAnimations() {
 /*=============== PROJECTS SECTION ANIMATIONS ===============*/
 function initProjectsAnimations() {
     if (!window.gsap || !window.ScrollTrigger) return;
+    if (window.innerWidth < 768) return; // Immediate visibility on mobile devices
 
     try {
         gsap.registerPlugin(ScrollTrigger);
@@ -487,6 +500,7 @@ function initProjectsAnimations() {
 /*=============== CONTACT SECTION ANIMATIONS ===============*/
 function initContactAnimations() {
     if (!window.gsap || !window.ScrollTrigger) return;
+    if (window.innerWidth < 768) return; // Immediate visibility on mobile devices
 
     try {
         gsap.registerPlugin(ScrollTrigger);
