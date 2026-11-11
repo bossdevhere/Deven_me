@@ -85,7 +85,13 @@
                 </div>
 
                 <!-- Form Fields -->
-                <form id="project-contact-form" class="space-y-4">
+                <form id="project-contact-form" action="https://formsubmit.co/devenrajput30209@gmail.com" method="POST" class="space-y-4">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Project Inquiry - Deven Rajput Portfolio">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
+
                     <div>
                         <label for="form-name" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Your Name</label>
                         <input type="text" id="form-name" name="name" required placeholder="Your name" class="w-full px-5 py-3.5 rounded-2xl bg-white/90 dark:bg-neutral-900/90 border border-gray-200 dark:border-neutral-700 text-gray-900 dark:text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all shadow-sm">
@@ -97,7 +103,7 @@
                     </div>
 
                     <div>
-                        <label for="form-message" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Project Details</label>
+                        <label for="form-message" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400 mb-1.5">Describe your project, ideas, or questions...</label>
                         <textarea id="form-message" name="message" rows="4" required placeholder="Describe your project, ideas, or questions..." class="w-full px-5 py-3.5 rounded-2xl bg-white/90 dark:bg-neutral-900/90 border border-gray-200 dark:border-neutral-700 text-gray-900 dark:text-white placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white transition-all shadow-sm resize-none"></textarea>
                     </div>
 
@@ -111,8 +117,13 @@
                         </button>
                     </div>
 
+                    <!-- Direct Email Alternative -->
+                    <p class="text-center text-xs text-gray-500 dark:text-gray-400 pt-1">
+                        Or reach out directly at <a href="mailto:devenrajput30209@gmail.com" class="text-gray-900 dark:text-white underline hover:text-[#d4f742] transition-colors font-medium">devenrajput30209@gmail.com</a>
+                    </p>
+
                     <!-- Success / Feedback Message -->
-                    <div id="form-feedback" class="hidden p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm text-center font-medium">
+                    <div id="form-feedback" class="hidden p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm text-center font-medium leading-relaxed">
                         ✨ Thank you! Your message has been sent successfully. I'll get back to you soon.
                     </div>
                 </form>

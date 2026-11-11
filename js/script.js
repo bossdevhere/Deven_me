@@ -584,28 +584,114 @@ function initContactInteractions() {
     });
 
     if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const submitBtn = document.getElementById('form-submit-btn');
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `<span>Sending...</span>`;
+            const nameInput = document.getElementById('form-name');
+            const emailInput = document.getElementById('form-email');
+            const messageInput = document.getElementById('form-message');
+            const honeyInput = form.querySelector('input[name="_honey"]');
+
+            // Honeypot bot protection
+            if (honeyInput && honeyInput.value) {
+                return;
             }
-            setTimeout(() => {
+
+            const name = nameInput ? nameInput.value.trim() : '';
+            const email = emailInput ? emailInput.value.trim() : '';
+            const message = messageInput ? messageInput.value.trim() : '';
+
+            if (!name || !email || !message) {
                 if (feedback) {
+                    feedback.className = 'p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-sm text-center font-medium';
+                    feedback.textContent = 'Please fill out all fields before sending.';
                     feedback.classList.remove('hidden');
                 }
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = `<span>Sent Successfully! ✓</span>`;
+                return;
+            }
+
+            const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    </svg>
+                    <span>Sending message...</span>
+                `;
+            }
+
+            const openMailtoFallback = () => {
+                const mailtoUrl = `mailto:devenrajput30209@gmail.com?subject=${encodeURIComponent('Project Inquiry from ' + name)}&body=${encodeURIComponent('Hi Deven,\n\nName: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + message)}`;
+                window.location.href = mailtoUrl;
+            };
+
+            const escapeHTML = (str) => {
+                const p = document.createElement('p');
+                p.textContent = str;
+                return p.innerHTML;
+            };
+
+            try {
+                const response = await fetch('https://formsubmit.co/ajax/devenrajput30209@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message,
+                        _subject: `New Portfolio Inquiry from ${name}`,
+                        _captcha: 'false',
+                        _template: 'table'
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && (data.success === 'true' || data.success === true)) {
+                    if (feedback) {
+                        feedback.className = 'p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm text-center font-medium leading-relaxed';
+                        feedback.innerHTML = `✨ <strong>Thank you, ${escapeHTML(name)}!</strong><br>Your message has been delivered directly to <a href="mailto:devenrajput30209@gmail.com" class="underline font-semibold">devenrajput30209@gmail.com</a>. I'll get back to you shortly.`;
+                        feedback.classList.remove('hidden');
+                    }
+                    if (submitBtn) {
+                        submitBtn.innerHTML = `<span>Sent Successfully! ✓</span>`;
+                    }
+                    form.reset();
+                } else if (data.message && data.message.includes('Activation')) {
+                    if (feedback) {
+                        feedback.className = 'p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm text-center font-medium leading-relaxed';
+                        feedback.innerHTML = `✨ <strong>Message Received!</strong> FormSubmit sent a one-time activation confirmation to <a href="mailto:devenrajput30209@gmail.com" class="underline font-semibold">devenrajput30209@gmail.com</a>. Opening your mail app as immediate backup...`;
+                        feedback.classList.remove('hidden');
+                    }
+                    if (submitBtn) {
+                        submitBtn.innerHTML = `<span>Message Sent! ✓</span>`;
+                    }
+                    setTimeout(openMailtoFallback, 1200);
+                    form.reset();
+                } else {
+                    throw new Error(data.message || 'Submission error');
                 }
-                form.reset();
+            } catch (err) {
+                console.warn('Form submission fallback:', err);
+                if (feedback) {
+                    feedback.className = 'p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 text-sm text-center font-medium leading-relaxed';
+                    feedback.innerHTML = `📬 Opening your mail app to send your message directly to <a href="mailto:devenrajput30209@gmail.com" class="underline font-semibold">devenrajput30209@gmail.com</a>...`;
+                    feedback.classList.remove('hidden');
+                }
+                setTimeout(openMailtoFallback, 800);
+            } finally {
                 setTimeout(() => {
                     if (submitBtn) {
-                        submitBtn.innerHTML = `<span>Send Message</span><svg class="w-4 h-4 stroke-current" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>`;
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnHTML;
                     }
-                }, 4000);
-            }, 600);
+                }, 5000);
+            }
         });
     }
 }
