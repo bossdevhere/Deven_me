@@ -45,10 +45,86 @@
 </head>
 <body class="antialiased text-gray-900 dark:text-gray-100 transition-colors duration-300 relative min-h-screen">
 
-    <!-- Global Fixed Cloud Background -->
-    <div class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat bg-fixed" style="z-index: -20; background-image: url('images/contact-clouds.jpg');"></div>
-    <!-- Global Ambient Theme Overlay for contrast -->
-    <div class="fixed inset-0 pointer-events-none bg-white/35 dark:bg-black/65 backdrop-blur-[1px] transition-colors duration-500" style="z-index: -10;"></div>
+    <!-- ==================== CINEMATIC FILM COUNTDOWN SPLASH SCREEN ==================== -->
+    <div id="cinema-splash" class="fixed inset-0 z-[99999] bg-[#070706] text-white flex flex-col justify-between p-6 sm:p-10 select-none overflow-hidden transition-all duration-700 ease-out" style="font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;">
+        <!-- Film grain & projector glow background -->
+        <div class="absolute inset-0 pointer-events-none opacity-25 bg-[radial-gradient(#d4f742_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-lime-500/10 via-white/5 to-transparent rounded-full blur-[120px] pointer-events-none"></div>
+
+        <!-- Top Film Header Bar -->
+        <div class="relative z-10 flex items-center justify-between text-xs tracking-widest font-mono text-gray-400">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                <span class="text-white font-bold tracking-wider">REC</span>
+                <span class="text-gray-500 font-mono">[<span id="splash-timecode">00:00:03</span>]</span>
+            </div>
+            <div class="hidden sm:block text-center text-gray-400 font-medium tracking-widest text-[11px]">
+                DEVEN RAJPUT // PORTFOLIO PREMIERE
+            </div>
+            <div>
+                <button id="skip-splash-btn" type="button" class="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-[#d4f742] hover:text-black border border-white/15 text-xs text-gray-300 transition-all font-mono tracking-wider cursor-pointer flex items-center gap-1.5 group">
+                    <span>SKIP</span>
+                    <span class="group-hover:translate-x-0.5 transition-transform">⏭</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Center Movie Film Leader Countdown -->
+        <div class="relative z-10 flex flex-col items-center justify-center my-auto">
+            <!-- Film Leader Reticle -->
+            <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full flex items-center justify-center">
+                <!-- Concentric Circles with authentic tick marks -->
+                <div class="absolute inset-0 rounded-full border border-white/20"></div>
+                <div class="absolute inset-2 sm:inset-3 rounded-full border border-dashed border-white/30"></div>
+                <div class="absolute inset-8 sm:inset-10 rounded-full border border-white/15"></div>
+                
+                <!-- Crosshairs -->
+                <div class="absolute w-full h-[1px] bg-white/25"></div>
+                <div class="absolute h-full w-[1px] bg-white/25"></div>
+
+                <!-- Clock / Radar sweeping line -->
+                <div id="splash-radar-arm" class="absolute inset-0 rounded-full pointer-events-none origin-center" style="transform: rotate(0deg);">
+                    <div class="w-1/2 h-[2px] bg-gradient-to-r from-transparent via-[#d4f742] to-[#d4f742] absolute top-1/2 left-0 -translate-y-1/2 shadow-[0_0_12px_#d4f742]"></div>
+                    <div class="w-1/2 h-1/2 absolute top-0 left-0 origin-bottom-right bg-gradient-to-tr from-[#d4f742]/15 to-transparent rounded-tl-full"></div>
+                </div>
+
+                <!-- Big Countdown Number & Subtitle -->
+                <div class="relative z-10 flex flex-col items-center justify-center text-center">
+                    <span id="splash-countdown-number" class="text-7xl sm:text-8xl md:text-9xl font-black text-white font-display tracking-tighter drop-shadow-[0_0_35px_rgba(212,247,66,0.35)] transition-all">3</span>
+                    <span id="splash-countdown-sub" class="text-[10px] sm:text-xs font-mono tracking-widest text-[#d4f742] mt-1 font-semibold uppercase">PREPARING ASSETS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Metadata & Preload Bar -->
+        <div class="relative z-10 w-full max-w-xl mx-auto flex flex-col gap-2.5 font-mono text-xs text-gray-400">
+            <!-- Progress Bar -->
+            <div class="w-full">
+                <div class="flex justify-between items-center text-[10px] sm:text-[11px] text-gray-400 mb-1.5 tracking-wider">
+                    <span class="flex items-center gap-1.5">
+                        <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#d4f742] animate-ping"></span>
+                        <span id="splash-status-text">INITIALIZING DIGITAL STAGE...</span>
+                    </span>
+                    <span id="splash-percent-text" class="text-[#d4f742] font-bold">0%</span>
+                </div>
+                <div class="w-full h-1 sm:h-1.5 rounded-full bg-white/10 overflow-hidden">
+                    <div id="splash-progress-bar" class="h-full bg-[#d4f742] w-0 transition-all duration-300 shadow-[0_0_10px_#d4f742]"></div>
+                </div>
+            </div>
+
+            <!-- Specs footer -->
+            <div class="flex items-center justify-between text-[9px] sm:text-[10px] text-gray-500 pt-0.5 tracking-widest uppercase">
+                <span>SCENE: 01 / TAKE: 01</span>
+                <span class="hidden sm:inline">AUDIO: SYNC • 48kHz</span>
+                <span>FPS: 60 • 4K READY</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Fixed Cloud Background (Optimized without bg-fixed for 60fps scrolling) -->
+    <div class="fixed inset-0 pointer-events-none bg-cover bg-center bg-no-repeat" style="z-index: -20; background-image: url('images/contact-clouds.jpg');"></div>
+    <!-- Global Ambient Theme Overlay (Optimized without heavy full-screen blur) -->
+    <div class="fixed inset-0 pointer-events-none bg-white/45 dark:bg-[#070706]/75 transition-colors duration-500" style="z-index: -10;"></div>
 
     <!-- ==================== HEADER ==================== -->
     <header id="header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-3 sm:py-4 px-4 sm:px-8">

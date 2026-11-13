@@ -360,3 +360,28 @@ html.dark .card:hover {
 .project-repo-btn:active {
     transform: scale(0.96);
 }
+
+/* ========================================================
+   HIGH-PERFORMANCE HARDWARE ACCELERATION & OPTIMIZATIONS
+   ======================================================== */
+/* Optimize off-screen sections rendering (saves CPU & memory) */
+#about, #skills, #services, #projects, #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+}
+
+/* GPU layer promotion for animated cards to eliminate scroll lag */
+.hero-card,
+.about-card,
+.service-card,
+.projects-master-card,
+.contact-master-card,
+.hero-exp-card {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Splash screen countdown number pop */
+#splash-countdown-number {
+    text-shadow: 0 0 30px rgba(212, 247, 66, 0.4), 0 0 60px rgba(212, 247, 66, 0.2);
+}

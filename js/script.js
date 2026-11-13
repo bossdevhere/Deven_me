@@ -116,61 +116,96 @@ function initializePortfolio() {
         link.addEventListener('click', closeMenu);
     });
 
-    /*=============== HEADER SCROLL EFFECT ===============*/
+    /*=============== HIGH-PERFORMANCE UNIFIED SCROLL HANDLER ===============*/
     const header = document.getElementById('header');
-    const scrollHeader = () => {
-        if (!header) return;
-        if (window.scrollY >= 40) {
-            header.classList.add('backdrop-blur-md', 'shadow-sm');
-            header.style.backgroundColor = document.documentElement.classList.contains(darkTheme)
-                ? 'rgba(8, 8, 8, 0.85)'
-                : 'rgba(255, 255, 255, 0.85)';
-        } else {
-            header.classList.remove('backdrop-blur-md', 'shadow-sm');
-            header.style.backgroundColor = 'transparent';
-        }
-    };
-    window.addEventListener('scroll', scrollHeader);
-
-    /*=============== ACTIVE NAV LINK ON SCROLL ===============*/
+    const scrollUpBtn = document.getElementById('scroll-up');
     const sections = document.querySelectorAll('section[id]');
     const navPillLinks = document.querySelectorAll('.nav-tab');
 
-    const scrollActive = () => {
-        const scrollY = window.pageYOffset;
-        sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 120;
-            const sectionId = current.getAttribute('id');
-            const navLink = document.querySelector(`.nav-tab[href="#${sectionId}"]`);
+    let cachedSectionOffsets = [];
+    const updateCachedOffsets = () => {
+        cachedSectionOffsets = Array.from(sections).map(sec => ({
+            id: sec.getAttribute('id'),
+            top: sec.offsetTop - 140,
+            bottom: sec.offsetTop + sec.offsetHeight - 140
+        }));
+    };
 
-            if (navLink) {
-                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-                    navPillLinks.forEach(item => {
-                        item.classList.remove('active-link', 'bg-[#d4f742]', 'text-black', 'font-semibold', 'shadow-sm');
-                        item.classList.add('text-gray-700', 'dark:text-gray-300');
-                    });
-                    navLink.classList.add('active-link', 'bg-[#d4f742]', 'text-black', 'font-semibold', 'shadow-sm');
-                    navLink.classList.remove('text-gray-700', 'dark:text-gray-300');
+    updateCachedOffsets();
+    window.addEventListener('resize', updateCachedOffsets, { passive: true });
+    window.addEventListener('load', updateCachedOffsets, { passive: true });
+
+    let isHeaderScrolled = false;
+    let isScrollUpVisible = false;
+    let activeNavId = null;
+    let scrollTicking = false;
+
+    const onScrollTick = () => {
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const isDark = document.documentElement.classList.contains(darkTheme);
+
+        // 1. Header scroll effect (state-checked to prevent layout thrashing)
+        const shouldHeaderScroll = scrollY >= 40;
+        if (shouldHeaderScroll !== isHeaderScrolled) {
+            isHeaderScrolled = shouldHeaderScroll;
+            if (header) {
+                if (isHeaderScrolled) {
+                    header.classList.add('backdrop-blur-md', 'shadow-sm');
+                    header.style.backgroundColor = isDark ? 'rgba(8, 8, 8, 0.85)' : 'rgba(255, 255, 255, 0.85)';
+                } else {
+                    header.classList.remove('backdrop-blur-md', 'shadow-sm');
+                    header.style.backgroundColor = 'transparent';
                 }
             }
-        });
-    };
-    window.addEventListener('scroll', scrollActive);
-
-    /*=============== SCROLL TO TOP ===============*/
-    const scrollUp = () => {
-        const scrollUpBtn = document.getElementById('scroll-up');
-        if (!scrollUpBtn) return;
-        if (window.scrollY >= 400) {
-            scrollUpBtn.classList.remove('-bottom-1/4');
-            scrollUpBtn.classList.add('bottom-4', 'sm:bottom-6');
-        } else {
-            scrollUpBtn.classList.remove('bottom-4', 'sm:bottom-6');
-            scrollUpBtn.classList.add('-bottom-1/4');
         }
+
+        // 2. Scroll to top button (state-checked)
+        const shouldScrollUp = scrollY >= 400;
+        if (shouldScrollUp !== isScrollUpVisible) {
+            isScrollUpVisible = shouldScrollUp;
+            if (scrollUpBtn) {
+                if (isScrollUpVisible) {
+                    scrollUpBtn.classList.remove('-bottom-1/4');
+                    scrollUpBtn.classList.add('bottom-4', 'sm:bottom-6');
+                } else {
+                    scrollUpBtn.classList.remove('bottom-4', 'sm:bottom-6');
+                    scrollUpBtn.classList.add('-bottom-1/4');
+                }
+            }
+        }
+
+        // 3. Active Nav tab indicator using pre-cached offsets (zero layout recalculations)
+        let currentId = null;
+        for (let i = 0; i < cachedSectionOffsets.length; i++) {
+            const sec = cachedSectionOffsets[i];
+            if (scrollY >= sec.top && scrollY < sec.bottom) {
+                currentId = sec.id;
+                break;
+            }
+        }
+
+        if (currentId && currentId !== activeNavId) {
+            activeNavId = currentId;
+            const targetLink = document.querySelector(`.nav-tab[href="#${activeNavId}"]`);
+            if (targetLink) {
+                navPillLinks.forEach(item => {
+                    item.classList.remove('active-link', 'bg-[#d4f742]', 'text-black', 'font-semibold', 'shadow-sm');
+                    item.classList.add('text-gray-700', 'dark:text-gray-300');
+                });
+                targetLink.classList.add('active-link', 'bg-[#d4f742]', 'text-black', 'font-semibold', 'shadow-sm');
+                targetLink.classList.remove('text-gray-700', 'dark:text-gray-300');
+            }
+        }
+
+        scrollTicking = false;
     };
-    window.addEventListener('scroll', scrollUp);
+
+    window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+            requestAnimationFrame(onScrollTick);
+            scrollTicking = true;
+        }
+    }, { passive: true });
 
     /*=============== PROJECT FILTER ===============*/
     const filterButtons = document.querySelectorAll('.project-filter');
@@ -228,8 +263,138 @@ function initializePortfolio() {
     /*=============== CONTACT SECTION INTERACTION ===============*/
     initContactInteractions();
 
-    /*=============== BULLETPROOF GSAP ANIMATIONS ===============*/
+    /*=============== PRELOAD & INITIALIZE ENTRANCE ANIMATIONS ===============*/
+    // Start entrance animations behind splash so everything is settled and ready
     initGSAPAnimations();
+
+    /*=============== CINEMATIC SPLASH SCREEN & PRELOADER ===============*/
+    initCinematicSplashScreen();
+}
+
+/*=============== CINEMATIC COUNTDOWN SPLASH SCREEN & PRELOADER ===============*/
+function initCinematicSplashScreen(onCompleteCallback) {
+    const splash = document.getElementById('cinema-splash');
+    if (!splash) {
+        if (onCompleteCallback) onCompleteCallback();
+        return;
+    }
+
+    const numEl = document.getElementById('splash-countdown-number');
+    const subEl = document.getElementById('splash-countdown-sub');
+    const timecodeEl = document.getElementById('splash-timecode');
+    const statusEl = document.getElementById('splash-status-text');
+    const percentEl = document.getElementById('splash-percent-text');
+    const progressBar = document.getElementById('splash-progress-bar');
+    const radarArm = document.getElementById('splash-radar-arm');
+    const skipBtn = document.getElementById('skip-splash-btn');
+
+    let isDismissed = false;
+    let radarAnimId;
+
+    // Preload critical assets in the background during countdown
+    const criticalAssets = [
+        'images/hero-clean.png',
+        'images/contact-clouds.jpg',
+        'images/about-me.jpg',
+        'images/logo.png',
+        'images/projects/website-builder.png',
+        'images/projects/medlookup.png',
+        'images/projects/finey-mobile.png',
+        'images/projects/skippr.png',
+        'images/projects/chat-webapp.png',
+        'images/projects/story-buddy.png'
+    ];
+
+    criticalAssets.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+
+    // Dismiss with cinematic film dissolve
+    const dismissSplash = () => {
+        if (isDismissed) return;
+        isDismissed = true;
+        if (radarAnimId) cancelAnimationFrame(radarAnimId);
+
+        splash.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+        splash.style.opacity = '0';
+        splash.style.transform = 'scale(1.05)';
+        splash.style.pointerEvents = 'none';
+
+        if (onCompleteCallback) {
+            onCompleteCallback();
+        }
+
+        setTimeout(() => {
+            splash.style.display = 'none';
+            if (window.ScrollTrigger) ScrollTrigger.refresh();
+        }, 650);
+    };
+
+    if (skipBtn) {
+        skipBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            dismissSplash();
+        });
+    }
+
+    // Rotating film radar sweep arm
+    let angle = 0;
+    const rotateRadar = () => {
+        if (isDismissed) return;
+        angle = (angle + 5.5) % 360;
+        if (radarArm) radarArm.style.transform = `rotate(${angle}deg)`;
+        radarAnimId = requestAnimationFrame(rotateRadar);
+    };
+    radarAnimId = requestAnimationFrame(rotateRadar);
+
+    // Movie Countdown Stages: 3 -> 2 -> 1 -> START
+    const stages = [
+        { num: '3', sub: 'INITIALIZING ASSETS', tc: '00:00:03', status: 'PRE-FETCHING ENGINE & TEXTURES...', pct: 28 },
+        { num: '2', sub: 'SYNCING GRAPHICS',   tc: '00:00:02', status: 'OPTIMIZING 60FPS COMPOSITOR...', pct: 65 },
+        { num: '1', sub: 'READY FOR PREMIERE', tc: '00:00:01', status: 'INITIALIZING PORTFOLIO STAGE...', pct: 95 },
+        { num: 'START', sub: 'ACTION',         tc: '00:00:00', status: 'PREMIERE READY • ENJOY', pct: 100 }
+    ];
+
+    let stageIndex = 0;
+
+    const runStage = () => {
+        if (isDismissed) return;
+
+        const current = stages[stageIndex];
+
+        if (numEl) {
+            numEl.style.transform = 'scale(1.22)';
+            numEl.style.opacity = '0.35';
+            setTimeout(() => {
+                if (isDismissed) return;
+                numEl.textContent = current.num;
+                numEl.style.transform = 'scale(1)';
+                numEl.style.opacity = '1';
+                if (current.num === 'START') {
+                    numEl.style.color = '#d4f742';
+                    numEl.style.fontSize = 'clamp(3.5rem, 12vw, 6.5rem)';
+                }
+            }, 75);
+        }
+
+        if (subEl) subEl.textContent = current.sub;
+        if (timecodeEl) timecodeEl.textContent = current.tc;
+        if (statusEl) statusEl.textContent = current.status;
+        if (percentEl) percentEl.textContent = `${current.pct}%`;
+        if (progressBar) progressBar.style.width = `${current.pct}%`;
+
+        stageIndex++;
+
+        if (stageIndex < stages.length) {
+            setTimeout(runStage, 620);
+        } else {
+            // Held at START for 350ms, then reveal site
+            setTimeout(dismissSplash, 420);
+        }
+    };
+
+    setTimeout(runStage, 150);
 }
 
 function initGSAPAnimations() {
@@ -366,35 +531,54 @@ function initHeroMouseParallax() {
     const expCard = document.querySelector('.hero-exp-card');
 
     if (!heroCard || !portrait) return;
+    // Don't bind mouse parallax on touch/mobile devices to save battery & CPU
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    let heroRect = null;
+    let parallaxTicking = false;
+
+    heroCard.addEventListener('mouseenter', () => {
+        heroRect = heroCard.getBoundingClientRect();
+    }, { passive: true });
 
     heroCard.addEventListener('mousemove', (e) => {
-        const rect = heroCard.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        if (!parallaxTicking) {
+            requestAnimationFrame(() => {
+                if (!heroRect) heroRect = heroCard.getBoundingClientRect();
+                const x = (e.clientX - heroRect.left) / heroRect.width - 0.5;
+                const y = (e.clientY - heroRect.top) / heroRect.height - 0.5;
 
-        gsap.to(portrait, {
-            x: x * 15,
-            y: y * 10,
-            duration: 0.8,
-            ease: "power1.out"
-        });
+                gsap.to(portrait, {
+                    x: x * 15,
+                    y: y * 10,
+                    duration: 0.8,
+                    ease: "power1.out",
+                    overwrite: "auto"
+                });
 
-        if (expCard) {
-            gsap.to(expCard, {
-                x: -x * 20,
-                y: -y * 15,
-                duration: 0.8,
-                ease: "power1.out"
+                if (expCard) {
+                    gsap.to(expCard, {
+                        x: -x * 20,
+                        y: -y * 15,
+                        duration: 0.8,
+                        ease: "power1.out",
+                        overwrite: "auto"
+                    });
+                }
+                parallaxTicking = false;
             });
+            parallaxTicking = true;
         }
-    });
+    }, { passive: true });
 
     heroCard.addEventListener('mouseleave', () => {
+        heroRect = null;
         gsap.to(portrait, {
             x: 0,
             y: 0,
             duration: 1.2,
-            ease: "power2.out"
+            ease: "power2.out",
+            overwrite: "auto"
         });
 
         if (expCard) {
@@ -402,10 +586,11 @@ function initHeroMouseParallax() {
                 x: 0,
                 y: 0,
                 duration: 1.2,
-                ease: "power2.out"
+                ease: "power2.out",
+                overwrite: "auto"
             });
         }
-    });
+    }, { passive: true });
 }
 
 /*=============== ABOUT SECTION ANIMATIONS ===============*/
