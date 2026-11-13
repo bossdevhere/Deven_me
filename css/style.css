@@ -250,10 +250,62 @@ html.dark .card:hover {
         display: none !important;
     }
 
-    /* Hero portrait slightly smaller on mobile view for optimal balance and readability */
+    /* Hero portrait scale preserved as original */
     .hero-portrait-img {
-        transform: scale(0.8) !important;
-        transform-origin: 50% 42% !important;
+        transform: none !important;
+    }
+
+    /* Mobile ordering: Greeting & role at top, stats in middle, social widget at bottom right */
+    .hero-card {
+        padding: 1.5rem 1.25rem !important;
+        min-height: 700px !important;
+    }
+
+    .hero-main-content {
+        order: 1 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0.5rem !important;
+    }
+
+    .hero-bottom-row {
+        order: 2 !important;
+        padding-top: 0.5rem !important;
+    }
+
+    .hero-social-row {
+        order: 3 !important;
+        margin-top: 1rem !important;
+        margin-bottom: 0.25rem !important;
+    }
+
+    /* Decreased size of Social Acc container on mobile */
+    .hero-exp-card {
+        max-width: 172px !important;
+        padding: 0.5rem 0.75rem !important;
+        border-radius: 0.875rem !important;
+    }
+
+    .hero-social-header {
+        font-size: 9.5px !important;
+        margin-bottom: 0.35rem !important;
+        white-space: nowrap !important;
+    }
+
+    .hero-social-status {
+        font-size: 9px !important;
+    }
+
+    .hero-exp-card .exp-icon-item {
+        width: 2rem !important;
+        height: 2rem !important;
+        border-radius: 0.5rem !important;
+    }
+
+    .hero-exp-card .exp-icon-item svg {
+        width: 1rem !important;
+        height: 1rem !important;
     }
 
     /* Guarantee all cards and elements are immediately rendered and visible on mobile */

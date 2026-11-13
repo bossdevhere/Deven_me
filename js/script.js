@@ -258,11 +258,10 @@ function initGSAPAnimations() {
             { scale: 1, duration: 0.8, ease: "power2.out", clearProps: "all" },
             "-=0.4"
         )
-        // Hero portrait gentle zoom settle (smaller scale on mobile)
-        const isMobileScreen = window.innerWidth < 768;
+        // Hero portrait gentle zoom settle
         tl.fromTo(".hero-portrait-img",
-            { scale: isMobileScreen ? 0.85 : 1.05, opacity: 0.5 },
-            { scale: isMobileScreen ? 0.8 : 1, opacity: 1, duration: 1.0, ease: "power2.out", clearProps: isMobileScreen ? "opacity" : "all" },
+            { scale: 1.05, opacity: 0.5 },
+            { scale: 1, opacity: 1, duration: 1.0, ease: "power2.out", clearProps: "all" },
             "-=0.6"
         )
         // Hero headline reveal
