@@ -255,10 +255,17 @@ html.dark .card:hover {
         transform: none !important;
     }
 
-    /* Mobile ordering: Greeting & role at top, stats in middle, social widget at bottom right */
+    /* Mobile ordering: Greeting & role at top, social widget above stats, stats at bottom */
     .hero-card {
         padding: 1.5rem 1.25rem !important;
         min-height: 700px !important;
+    }
+
+    /* Reduced hero headline size on mobile view */
+    .hero-title {
+        font-size: 1.875rem !important; /* 30px (down from 36px) */
+        line-height: 1.15 !important;
+        margin-bottom: 1.25rem !important;
     }
 
     .hero-main-content {
@@ -266,18 +273,18 @@ html.dark .card:hover {
         margin-top: 0 !important;
         margin-bottom: 0 !important;
         padding-top: 0 !important;
-        padding-bottom: 0.5rem !important;
-    }
-
-    .hero-bottom-row {
-        order: 2 !important;
-        padding-top: 0.5rem !important;
+        padding-bottom: 0 !important;
     }
 
     .hero-social-row {
+        order: 2 !important;
+        margin-top: auto !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .hero-bottom-row {
         order: 3 !important;
-        margin-top: 1rem !important;
-        margin-bottom: 0.25rem !important;
+        padding-top: 0.25rem !important;
     }
 
     /* Decreased size of Social Acc container on mobile */
