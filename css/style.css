@@ -245,6 +245,11 @@ html.dark .card:hover {
    RESPONSIVE ENHANCEMENTS & MOBILE VISIBILITY SAFEGUARD
    ======================================================== */
 @media (max-width: 767px) {
+    /* Hero description hidden on mobile view for a cleaner layout */
+    .hero-desc {
+        display: none !important;
+    }
+
     /* Hero portrait slightly smaller on mobile view for optimal balance and readability */
     .hero-portrait-img {
         transform: scale(0.8) !important;
